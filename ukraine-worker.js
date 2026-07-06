@@ -1,7 +1,7 @@
 // ukraine-worker.js — CF Worker для Ukraine TV Hub
 // Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '2.0.0';
+const VERSION = '2.2.0';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -17,17 +17,22 @@ const STREAMS = {
   espreso:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742594.m3u8',  // Еспресо ТВ
   ukraine24:  'https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8', // Україна 24
   kyiv24:     'https://api-tv.ipnet.ua/api/v1/manifest/1293296300.m3u8',  // Київ 24
-  news24:     'http://streamvideol1.luxnet.ua/news24/smil:news24.stream.smil/playlist.m3u8', // 24 Канал
+  news24:     'http://streamvideol1.luxnet.ua/news24/livenews_360p/index.m3u8',              // 24 Канал (прямий сегмент)
   // ── Розваги та кіно ──────────────────────────────────────
   ntn:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/ntn-abr/playlist.m3u8',     // НТН
   oneplusone: 'https://dash2.antik.sk/live/test_one_plus_one_int_tizen/playlist.m3u8', // 1+1 Міжнар.
   kvartal:    'https://dash2.antik.sk/live/kvartal_tv/playlist.m3u8',                  // Квартал ТВ
   interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // Інтер+
-  // ── Суспільне та регіональні ─────────────────────────────
+  rada:       'https://api-tv.ipnet.ua/api/v1/manifest/1312714970.m3u8',                  // Рада ТВ
+  // ── Суспільне та громадські ──────────────────────────────
   suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Суспільне Київ
   irt:        'https://stream.irt.ua/memfs/8fac7cbb-3356-4a03-bb77-4439b727ebd2.m3u8', // IRT
+  armytv:     'https://api-tv.ipnet.ua/api/v1/manifest/2118742632.m3u8',               // Армія ТВ
+  // ── Регіональні ──────────────────────────────────────────
   rai:        'https://stream.rai.ua/rai/stream.m3u8',                                 // RAI
   tva:        'https://hls.cdn.ua/tva.ua_live/livestream/chunklist_.m3u8',             // TVA
+  ntk:        'http://stream.ntktv.ua/s/ntk/ntk.m3u8',                                // NTK TV
+  dnipro:     'http://vcdn1.produck.company:1935/out/dtv/playlist.m3u8',               // Дніпро TV
   // ── Музика ───────────────────────────────────────────────
   muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // Мюзвар
 };
