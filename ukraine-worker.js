@@ -1,7 +1,7 @@
 // ukraine-worker.js — CF Worker для Ukraine TV Hub
 // Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '1.0.0';
+const VERSION = '2.0.0';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -9,33 +9,27 @@ const CORS = {
   'Access-Control-Allow-Headers': '*',
 };
 
-// Потоки украинских каналов
-// ВАЖНО: после деплоя проверить каждый URL через:
-// https://ukraine-worker.dyaltd.workers.dev/debug?url=ENCODED_URL
+// Потоки украинских каналов (проверены через /debug)
 const STREAMS = {
   // ── Новини та загальні ────────────────────────────────────
-  pershyi:    'https://pershyi.tvd.com.ua/hls/pershyi/playlist.m3u8',    // Перший канал (перевірити)
-  inter:      'https://live.inter.ua/hls/inter/playlist.m3u8',            // Інтер (перевірити)
-  ukraine:    'https://live2.kanal.com.ua/hls/ukraina/index.m3u8',        // Україна (перевірити)
-  ukraine24:  'https://live.kanal.com.ua/hls/ukraine24/index.m3u8',       // Україна 24 (перевірити)
-  ictv:       'https://ictv-lc.volia.com/ICTV/03.stream/playlist.m3u8',  // ICTV (перевірити)
-  stb:        'https://stb-lc.volia.com/STB/03.stream/playlist.m3u8',     // СТБ (перевірити)
-  novy:       'https://live.novy.tv/hls/novy/playlist.m3u8',              // Новий канал (перевірити)
-  priamyi:    'https://priamyi.tv/hls/priamyi/playlist.m3u8',             // Прямий (перевірити)
+  pershyi:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742505.m3u8',  // Перший канал
+  channel5:   'https://api-tv.ipnet.ua/api/v1/manifest/2118742539.m3u8',  // 5 Канал
+  espreso:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742594.m3u8',  // Еспресо ТВ
+  ukraine24:  'https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8', // Україна 24
+  kyiv24:     'https://api-tv.ipnet.ua/api/v1/manifest/1293296300.m3u8',  // Київ 24
+  news24:     'http://streamvideol1.luxnet.ua/news24/smil:news24.stream.smil/playlist.m3u8', // 24 Канал
   // ── Розваги та кіно ──────────────────────────────────────
-  '2plus2':   'https://2plus2.ua/hls/2plus2/playlist.m3u8',              // 2+2 (перевірити)
-  tonis:      'https://tonis-lc.volia.com/TONIS/03.stream/playlist.m3u8', // Тоніс (перевірити)
-  k1:         'https://k1-lc.volia.com/K1/03.stream/playlist.m3u8',       // К1 (перевірити)
-  // ── Новини ───────────────────────────────────────────────
-  espreso:    'https://espreso.tv/hls/espreso/playlist.m3u8',             // Еспресо (перевірити)
-  channel5:   'https://5channel.com.ua/hls/live/playlist.m3u8',           // 5 Канал (перевірити)
-  zik:        'https://zik.ua/hls/zik/playlist.m3u8',                     // ZIK (перевірити)
-  // ── Дитячі ───────────────────────────────────────────────
-  piglet:     'https://piglet.ua/hls/piglet/playlist.m3u8',               // Піглет (перевірити)
-  pljus:      'https://plusplus-lc.volia.com/PLUSPLUS/03.stream/playlist.m3u8', // ПлюсПлюс (перевірити)
+  ntn:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/ntn-abr/playlist.m3u8',     // НТН
+  oneplusone: 'https://dash2.antik.sk/live/test_one_plus_one_int_tizen/playlist.m3u8', // 1+1 Міжнар.
+  kvartal:    'https://dash2.antik.sk/live/kvartal_tv/playlist.m3u8',                  // Квартал ТВ
+  interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // Інтер+
+  // ── Суспільне та регіональні ─────────────────────────────
+  suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Суспільне Київ
+  irt:        'https://stream.irt.ua/memfs/8fac7cbb-3356-4a03-bb77-4439b727ebd2.m3u8', // IRT
+  rai:        'https://stream.rai.ua/rai/stream.m3u8',                                 // RAI
+  tva:        'https://hls.cdn.ua/tva.ua_live/livestream/chunklist_.m3u8',             // TVA
   // ── Музика ───────────────────────────────────────────────
-  m1:         'https://m1.ua/hls/m1/playlist.m3u8',                       // М1 (перевірити)
-  m2:         'https://m2.ua/hls/m2/playlist.m3u8',                       // М2 (перевірити)
+  muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // Мюзвар
 };
 
 addEventListener('fetch', event => {

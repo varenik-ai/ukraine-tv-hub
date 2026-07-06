@@ -137,43 +137,35 @@ const CHANNEL_GROUPS = [
     label: '📡 Новини та загальні',
     channels: [
       { id:'pershyi',   name:'Перший канал',  desc:'Головний канал України',   icon:'1',    color:'#005BBB', iconBg:'#08101a', stream: PROXY+'/stream?channel=pershyi' },
-      { id:'inter',     name:'Інтер',         desc:'Розваги та новини',        icon:'INT',  color:'#e53935', iconBg:'#1a0808', stream: PROXY+'/stream?channel=inter' },
-      { id:'ukraine',   name:'Україна',       desc:'Загальнонаціональний',     icon:'УА',   color:'#005BBB', iconBg:'#08101a', stream: PROXY+'/stream?channel=ukraine' },
+      { id:'channel5',  name:'5 Канал',       desc:'Новини та аналітика',      icon:'5',    color:'#1565c0', iconBg:'#0a0f1a', stream: PROXY+'/stream?channel=channel5' },
+      { id:'espreso',   name:'Еспресо ТВ',    desc:'Новини 24/7',              icon:'ЕСП',  color:'#005BBB', iconBg:'#08101a', stream: PROXY+'/stream?channel=espreso' },
       { id:'ukraine24', name:'Україна 24',    desc:'Новини 24/7',              icon:'У24',  color:'#1565c0', iconBg:'#0a0f1a', stream: PROXY+'/stream?channel=ukraine24' },
-      { id:'ictv',      name:'ICTV',          desc:'Новини та розваги',        icon:'ICTV', color:'#f57f17', iconBg:'#1a1200', stream: PROXY+'/stream?channel=ictv' },
-      { id:'stb',       name:'СТБ',           desc:'Розваги та реаліті',       icon:'СТБ',  color:'#c62828', iconBg:'#180808', stream: PROXY+'/stream?channel=stb' },
-      { id:'novy',      name:'Новий канал',   desc:'Молодіжний канал',         icon:'НВ',   color:'#00838f', iconBg:'#081214', stream: PROXY+'/stream?channel=novy' },
-      { id:'priamyi',   name:'Прямий',        desc:'Новини та політика',       icon:'ПРМ',  color:'#1976d2', iconBg:'#0a0f1a', stream: PROXY+'/stream?channel=priamyi' },
+      { id:'kyiv24',    name:'Київ 24',       desc:'Новини столиці',           icon:'К24',  color:'#0277bd', iconBg:'#081218', stream: PROXY+'/stream?channel=kyiv24' },
+      { id:'news24',    name:'24 Канал',      desc:'Новини та репортажі',      icon:'24',   color:'#c62828', iconBg:'#180808', stream: PROXY+'/stream?channel=news24' },
     ]
   },
   {
     label: '🎬 Розваги та кіно',
     channels: [
-      { id:'2plus2',    name:'2+2',           desc:'Кіно та спорт',            icon:'2+2',  color:'#ff6d00', iconBg:'#1a1000', stream: PROXY+'/stream?channel=2plus2' },
-      { id:'tonis',     name:'Тоніс',         desc:'Документальне та кіно',    icon:'ТНС',  color:'#6a1b9a', iconBg:'#140a18', stream: PROXY+'/stream?channel=tonis' },
-      { id:'k1',        name:'К1',            desc:'Розваги та серіали',       icon:'К1',   color:'#e91e63', iconBg:'#1a0a10', stream: PROXY+'/stream?channel=k1' },
+      { id:'ntn',        name:'НТН',           desc:'Кіно та серіали',          icon:'НТН',  color:'#e53935', iconBg:'#1a0808', stream: PROXY+'/stream?channel=ntn' },
+      { id:'oneplusone', name:'1+1 Міжнар.',   desc:'Розваги та шоу',           icon:'1+1',  color:'#FFD500', iconBg:'#1a1400', stream: PROXY+'/stream?channel=oneplusone' },
+      { id:'kvartal',    name:'Квартал ТВ',    desc:'Гумор та розваги',         icon:'КВ',   color:'#ff6d00', iconBg:'#1a1000', stream: PROXY+'/stream?channel=kvartal' },
+      { id:'interplus',  name:'Інтер+',        desc:'Серіали та кіно',          icon:'INT+', color:'#7b1fa2', iconBg:'#140a18', stream: PROXY+'/stream?channel=interplus' },
     ]
   },
   {
-    label: '📰 Новини',
+    label: '📺 Суспільне та регіональні',
     channels: [
-      { id:'espreso',   name:'Еспресо',       desc:'Новини 24/7',              icon:'ЕСП',  color:'#005BBB', iconBg:'#08101a', stream: PROXY+'/stream?channel=espreso' },
-      { id:'channel5',  name:'5 Канал',       desc:'Новини та аналітика',      icon:'5',    color:'#1565c0', iconBg:'#0a0f1a', stream: PROXY+'/stream?channel=channel5' },
-      { id:'zik',       name:'ZIK',           desc:'Регіональне ТВ',           icon:'ZIK',  color:'#37474f', iconBg:'#0a0f12', stream: PROXY+'/stream?channel=zik' },
-    ]
-  },
-  {
-    label: '👶 Дитячі',
-    channels: [
-      { id:'piglet',    name:'Піглет',        desc:'Мультфільми 24/7',         icon:'ПГ',   color:'#ff8f00', iconBg:'#1a1400', stream: PROXY+'/stream?channel=piglet' },
-      { id:'pljus',     name:'ПлюсПлюс',      desc:'Для дітей',                icon:'++',   color:'#ff6f00', iconBg:'#1a1200', stream: PROXY+'/stream?channel=pljus' },
+      { id:'suspilne',  name:'Суспільне Київ', desc:'Суспільне мовлення',      icon:'СУС',  color:'#2e7d32', iconBg:'#081208', stream: PROXY+'/stream?channel=suspilne' },
+      { id:'irt',       name:'IRT',            desc:'Регіональний канал',       icon:'IRT',  color:'#00838f', iconBg:'#081214', stream: PROXY+'/stream?channel=irt' },
+      { id:'rai',       name:'RAI',            desc:'Розваги та музика',        icon:'RAI',  color:'#ad1457', iconBg:'#180810', stream: PROXY+'/stream?channel=rai' },
+      { id:'tva',       name:'TVA',            desc:'Регіональне ТВ',           icon:'TVA',  color:'#37474f', iconBg:'#0a0f12', stream: PROXY+'/stream?channel=tva' },
     ]
   },
   {
     label: '🎵 Музика',
     channels: [
-      { id:'m1',        name:'М1',            desc:'Українська музика',        icon:'М1',   color:'#FFD500', iconBg:'#1a1400', stream: PROXY+'/stream?channel=m1' },
-      { id:'m2',        name:'М2',            desc:'Кліпи та хіти',            icon:'М2',   color:'#f9a825', iconBg:'#1a1400', stream: PROXY+'/stream?channel=m2' },
+      { id:'muzvar',    name:'Мюзвар',         desc:'Українська музика 24/7',   icon:'МЗВ',  color:'#FFD500', iconBg:'#1a1400', stream: PROXY+'/stream?channel=muzvar' },
     ]
   },
 ];

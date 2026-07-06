@@ -14,108 +14,100 @@ bot.onText(/\/start/, (msg) => {
   const greetings = {
     uk: `🇺🇦 Привіт, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 18 каналів наживо в Telegram*
+📺 *УКРАЇ·НА·ТВ — 15 каналів наживо в Telegram*
 
 Дивись українське телебачення онлайн — безкоштовно, без VPN, без реєстрації, 24/7.
 
-📡 *Новини:* Перший, Інтер, Україна, Україна 24, ICTV, СТБ, Новий, Прямий
-🎬 *Розваги:* 2+2, Тоніс, К1
-📰 *Новини:* Еспресо, 5 канал, ZIK
-👶 *Дитячі:* ПлюсПлюс, Піглет
-🎵 *Музика:* М1, М2
+📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24, 24 Канал
+🎬 *Розваги:* НТН, 1+1 Міжнар., Квартал ТВ, Інтер+
+📺 *Суспільне:* Суспільне Київ, IRT, RAI, TVA
+🎵 *Музика:* Мюзвар
 
 ✅ HD · iOS · Android · Desktop · 8 мов`,
 
     ru: `🇺🇦 Привет, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 18 каналов прямого эфира в Telegram*
+📺 *УКРАЇ·НА·ТВ — 15 каналов прямого эфира в Telegram*
 
 Смотри украинское телевидение онлайн — бесплатно, без VPN, без регистрации, 24/7.
 
-📡 *Новости:* Первый, Интер, Украина, Украина 24, ICTV, СТБ, Новый, Прямой
-🎬 *Развлечения:* 2+2, Тонис, К1
-📰 *Новости:* Эспресо, 5 канал, ZIK
-👶 *Детские:* ПлюсПлюс, Піглет
-🎵 *Музыка:* М1, М2
+📡 *Новости:* Первый, 5 Канал, Эспресо, Украина 24, Киев 24, 24 Канал
+🎬 *Развлечения:* НТН, 1+1 Межд., Квартал ТВ, Интер+
+📺 *Общественное:* Суспільне, IRT, RAI, TVA
+🎵 *Музыка:* Мюзвар
 
 ✅ HD · iOS · Android · Desktop · 8 языков`,
 
     en: `🇺🇦 Hello, ${name}!
 
-📺 *UKRAINE·TV — 18 channels live on Telegram*
+📺 *UKRAINE·TV — 15 channels live on Telegram*
 
 Watch Ukrainian television online — free, no VPN, no registration, 24/7.
 
-📡 *News:* Pershyi, Inter, Ukraine, Ukraine 24, ICTV, STB, Novy, Priamyi
-🎬 *Entertainment:* 2+2, Tonis, K1
-📰 *News:* Espreso, Channel 5, ZIK
-👶 *Kids:* PlusPlus, Piglet
-🎵 *Music:* M1, M2
+📡 *News:* Pershyi, Channel 5, Espreso, Ukraine 24, Kyiv 24, 24 Channel
+🎬 *Entertainment:* NTN, 1+1 Intl., Kvartal TV, Inter+
+📺 *Public:* Suspilne Kyiv, IRT, RAI, TVA
+🎵 *Music:* Muzvar
 
 ✅ HD · iOS · Android · Desktop · 8 languages`,
 
     bg: `🇺🇦 Здравейте, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 18 украински канала на живо в Telegram*
+📺 *УКРАЇ·НА·ТВ — 15 украински канала на живо в Telegram*
 
 Гледайте украинска телевизия — безплатно, без VPN, без регистрация, 24/7.
 
-📡 *Новини:* Перший, Інтер, Україна 24, ICTV, СТБ
-🎬 *Развлечения:* 2+2, Тоніс, К1
-📰 *Новини:* Еспресо, 5 канал
-🎵 *Музика:* М1, М2
+📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24
+🎬 *Развлечения:* НТН, 1+1, Квартал ТВ, Інтер+
+🎵 *Музика:* Мюзвар
 
 ✅ HD · iOS · Android · Desktop`,
 
     pl: `🇺🇦 Cześć, ${name}!
 
-📺 *UKRAINE·TV — 18 kanałów na żywo w Telegram*
+📺 *UKRAINE·TV — 15 kanałów na żywo w Telegram*
 
 Oglądaj ukraińską telewizję — bezpłatnie, bez VPN, bez rejestracji, 24/7.
 
-📡 *Wiadomości:* Pershyi, Inter, Ukraine 24, ICTV, STB
-🎬 *Rozrywka:* 2+2, Tonis, K1
-📰 *Wiadomości:* Espreso, Kanał 5
-🎵 *Muzyka:* M1, M2
+📡 *Wiadomości:* Pershyi, Kanał 5, Espreso, Ukraine 24, Kyiv 24
+🎬 *Rozrywka:* NTN, 1+1 Intl., Kvartal TV, Inter+
+🎵 *Muzyka:* Muzvar
 
 ✅ HD · iOS · Android · Desktop · 8 języków`,
 
     de: `🇺🇦 Hallo, ${name}!
 
-📺 *UKRAINE·TV — 18 Sender live auf Telegram*
+📺 *UKRAINE·TV — 15 Sender live auf Telegram*
 
 Ukrainisches Fernsehen online — kostenlos, kein VPN, keine Anmeldung, 24/7.
 
-📡 *Nachrichten:* Pershyi, Inter, Ukraine 24, ICTV, STB
-🎬 *Unterhaltung:* 2+2, Tonis, K1
-📰 *Nachrichten:* Espreso, Kanal 5
-🎵 *Musik:* M1, M2
+📡 *Nachrichten:* Pershyi, Kanal 5, Espreso, Ukraine 24, Kyiv 24
+🎬 *Unterhaltung:* NTN, 1+1 Intl., Kvartal TV, Inter+
+🎵 *Musik:* Muzvar
 
 ✅ HD · iOS · Android · Desktop`,
 
     fr: `🇺🇦 Bonjour, ${name}!
 
-📺 *UKRAINE·TV — 18 chaînes en direct sur Telegram*
+📺 *UKRAINE·TV — 15 chaînes en direct sur Telegram*
 
 Télévision ukrainienne — gratuit, sans VPN, sans inscription, 24/7.
 
-📡 *Actualités:* Pershyi, Inter, Ukraine 24, ICTV, STB
-🎬 *Divertissement:* 2+2, Tonis, K1
-📰 *Actualités:* Espreso, Chaîne 5
-🎵 *Musique:* M1, M2
+📡 *Actualités:* Pershyi, Chaîne 5, Espreso, Ukraine 24, Kyiv 24
+🎬 *Divertissement:* NTN, 1+1 Intl., Kvartal TV, Inter+
+🎵 *Musique:* Muzvar
 
 ✅ HD · iOS · Android · Desktop`,
 
     es: `🇺🇦 ¡Hola, ${name}!
 
-📺 *UKRAINE·TV — 18 canales en vivo en Telegram*
+📺 *UKRAINE·TV — 15 canales en vivo en Telegram*
 
 Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 
-📡 *Noticias:* Pershyi, Inter, Ukraine 24, ICTV, STB
-🎬 *Entretenimiento:* 2+2, Tonis, K1
-📰 *Noticias:* Espreso, Canal 5
-🎵 *Música:* M1, M2
+📡 *Noticias:* Pershyi, Canal 5, Espreso, Ukraine 24, Kyiv 24
+🎬 *Entretenimiento:* NTN, 1+1 Intl., Kvartal TV, Inter+
+🎵 *Música:* Muzvar
 
 ✅ HD · iOS · Android · Desktop`,
   };
@@ -157,26 +149,23 @@ Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 bot.onText(/^\/post$/, async (msg) => {
   try {
     const post = await bot.sendMessage(CHANNEL,
-`🇺🇦 *УКРАЇ·НА·ТВ — 18 КАНАЛІВ НАЖИВО* 🔴
+`🇺🇦 *УКРАЇ·НА·ТВ — 15 КАНАЛІВ НАЖИВО* 🔴
 
-Дивіться *провідні українські телеканали* прямо в Telegram — *безкоштовно, без VPN, без реєстрації, 24/7.*
+Дивіться *українські телеканали* прямо в Telegram — *безкоштовно, без VPN, без реєстрації, 24/7.*
 
 ━━━━━━━━━━━━━━━━━━━━
 📡 *НОВИНИ ТА ЗАГАЛЬНІ*
-▪️ Перший канал · Інтер · Україна · Україна 24
-▪️ ICTV · СТБ · Новий канал · Прямий
+▪️ Перший · 5 Канал · Еспресо ТВ
+▪️ Україна 24 · Київ 24 · 24 Канал
 
 🎬 *РОЗВАГИ ТА КІНО*
-▪️ 2+2 · Тоніс · К1
+▪️ НТН · 1+1 Міжнар. · Квартал ТВ · Інтер+
 
-📰 *НОВИНИ*
-▪️ Еспресо · 5 Канал · ZIK
-
-👶 *ДИТЯЧІ*
-▪️ ПлюсПлюс · Піглет
+📺 *СУСПІЛЬНЕ ТА РЕГІОНАЛЬНІ*
+▪️ Суспільне Київ · IRT · RAI · TVA
 
 🎵 *МУЗИКА*
-▪️ М1 · М2
+▪️ Мюзвар
 ━━━━━━━━━━━━━━━━━━━━
 
 ✅ HD · iOS · Android · Desktop · 8 мов
