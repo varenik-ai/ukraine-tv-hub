@@ -14,102 +14,115 @@ bot.onText(/\/start/, (msg) => {
   const greetings = {
     uk: `🇺🇦 Привіт, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 19 каналів наживо в Telegram*
+📺 *УКРАЇ·НА·ТВ — 25 каналів наживо в Telegram*
 
 Дивись українське телебачення онлайн — безкоштовно, без VPN, без реєстрації, 24/7.
 
-📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24, 24 Канал
-🎬 *Розваги:* НТН, 1+1 Міжнар., Квартал ТВ, Інтер+
-📺 *Суспільне:* Суспільне Київ, IRT, RAI, TVA
-🎵 *Музика:* Мюзвар
+📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24, 24 Канал, Рада
+🎬 *Розваги:* НТН, 1+1 Міжнар., Квартал ТВ, Інтер+, Мега, К2
+📺 *Суспільне:* Суспільне Київ, IRT, Армія ТВ
+🏙️ *Регіональні:* RAI, TVA, NTK, Дніпро, 7 Канал, Рівне 1, ITV
+🎵 *Музика:* Мюзвар, NASHE Music
 
 ✅ HD · iOS · Android · Desktop · 8 мов`,
 
     ru: `🇺🇦 Привет, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 19 каналов прямого эфира в Telegram*
+📺 *УКРАЇ·НА·ТВ — 25 каналов прямого эфира в Telegram*
 
 Смотри украинское телевидение онлайн — бесплатно, без VPN, без регистрации, 24/7.
 
-📡 *Новости:* Первый, 5 Канал, Эспресо, Украина 24, Киев 24, 24 Канал
-🎬 *Развлечения:* НТН, 1+1 Межд., Квартал ТВ, Интер+
-📺 *Общественное:* Суспільне, IRT, RAI, TVA
-🎵 *Музыка:* Мюзвар
+📡 *Новости:* Первый, 5 Канал, Эспресо, Украина 24, Киев 24, 24 Канал, Рада
+🎬 *Развлечения:* НТН, 1+1 Межд., Квартал ТВ, Интер+, Мега, К2
+📺 *Общественное:* Суспільне, IRT, Армия ТВ
+🏙️ *Региональные:* RAI, TVA, NTK, Днепр, 7 Канал, Ровно 1, ITV
+🎵 *Музыка:* Мюзвар, NASHE Music
 
 ✅ HD · iOS · Android · Desktop · 8 языков`,
 
     en: `🇺🇦 Hello, ${name}!
 
-📺 *UKRAINE·TV — 19 channels live on Telegram*
+📺 *UKRAINE·TV — 25 channels live on Telegram*
 
 Watch Ukrainian television online — free, no VPN, no registration, 24/7.
 
-📡 *News:* Pershyi, Channel 5, Espreso, Ukraine 24, Kyiv 24, 24 Channel
-🎬 *Entertainment:* NTN, 1+1 Intl., Kvartal TV, Inter+
-📺 *Public:* Suspilne Kyiv, IRT, RAI, TVA
-🎵 *Music:* Muzvar
+📡 *News:* Pershyi, Channel 5, Espreso, Ukraine 24, Kyiv 24, 24 Channel, Rada
+🎬 *Entertainment:* NTN, 1+1 Intl., Kvartal TV, Inter+, Mega, K2
+📺 *Public:* Suspilne Kyiv, IRT, Army TV
+🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Ch.7, Rivne 1, ITV
+🎵 *Music:* Muzvar, NASHE Music
 
 ✅ HD · iOS · Android · Desktop · 8 languages`,
 
     bg: `🇺🇦 Здравейте, ${name}!
 
-📺 *УКРАЇ·НА·ТВ — 15 украински канала на живо в Telegram*
+📺 *УКРАЇ·НА·ТВ — 25 украински канала на живо в Telegram*
 
 Гледайте украинска телевизия — безплатно, без VPN, без регистрация, 24/7.
 
-📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24
-🎬 *Развлечения:* НТН, 1+1, Квартал ТВ, Інтер+
-🎵 *Музика:* Мюзвар
+📡 *Новини:* Перший, 5 Канал, Еспресо, Україна 24, Київ 24, 24 Канал, Рада
+🎬 *Развлечения:* НТН, 1+1, Квартал ТВ, Інтер+, Мега, К2
+📺 *Обществено:* Суспільне, IRT, Армия ТВ
+🏙️ *Регионални:* RAI, TVA, NTK, Дніпро, 7 Канал, Рівне 1, ITV
+🎵 *Музика:* Мюзвар, NASHE Music
 
-✅ HD · iOS · Android · Desktop`,
+✅ HD · iOS · Android · Desktop · 8 езика`,
 
     pl: `🇺🇦 Cześć, ${name}!
 
-📺 *UKRAINE·TV — 15 kanałów na żywo w Telegram*
+📺 *UKRAINE·TV — 25 kanałów na żywo w Telegram*
 
 Oglądaj ukraińską telewizję — bezpłatnie, bez VPN, bez rejestracji, 24/7.
 
-📡 *Wiadomości:* Pershyi, Kanał 5, Espreso, Ukraine 24, Kyiv 24
-🎬 *Rozrywka:* NTN, 1+1 Intl., Kvartal TV, Inter+
-🎵 *Muzyka:* Muzvar
+📡 *Wiadomości:* Pershyi, Kanał 5, Espreso, Ukraine 24, Kyiv 24, 24 Kanał, Rada
+🎬 *Rozrywka:* NTN, 1+1 Intl., Kvartal TV, Inter+, Mega, K2
+📺 *Publiczne:* Suspilne, IRT, Army TV
+🏙️ *Regionalne:* RAI, TVA, NTK, Dniepr, Kanał 7, Równe 1, ITV
+🎵 *Muzyka:* Muzvar, NASHE Music
 
 ✅ HD · iOS · Android · Desktop · 8 języków`,
 
     de: `🇺🇦 Hallo, ${name}!
 
-📺 *UKRAINE·TV — 15 Sender live auf Telegram*
+📺 *UKRAINE·TV — 25 Sender live auf Telegram*
 
 Ukrainisches Fernsehen online — kostenlos, kein VPN, keine Anmeldung, 24/7.
 
-📡 *Nachrichten:* Pershyi, Kanal 5, Espreso, Ukraine 24, Kyiv 24
-🎬 *Unterhaltung:* NTN, 1+1 Intl., Kvartal TV, Inter+
-🎵 *Musik:* Muzvar
+📡 *Nachrichten:* Pershyi, Kanal 5, Espreso, Ukraine 24, Kyiv 24, 24 Kanal, Rada
+🎬 *Unterhaltung:* NTN, 1+1 Intl., Kvartal TV, Inter+, Mega, K2
+📺 *Öffentlich:* Suspilne, IRT, Army TV
+🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Kanal 7, Rivne 1, ITV
+🎵 *Musik:* Muzvar, NASHE Music
 
-✅ HD · iOS · Android · Desktop`,
+✅ HD · iOS · Android · Desktop · 8 Sprachen`,
 
     fr: `🇺🇦 Bonjour, ${name}!
 
-📺 *UKRAINE·TV — 15 chaînes en direct sur Telegram*
+📺 *UKRAINE·TV — 25 chaînes en direct sur Telegram*
 
 Télévision ukrainienne — gratuit, sans VPN, sans inscription, 24/7.
 
-📡 *Actualités:* Pershyi, Chaîne 5, Espreso, Ukraine 24, Kyiv 24
-🎬 *Divertissement:* NTN, 1+1 Intl., Kvartal TV, Inter+
-🎵 *Musique:* Muzvar
+📡 *Actualités:* Pershyi, Chaîne 5, Espreso, Ukraine 24, Kyiv 24, 24 Kanal, Rada
+🎬 *Divertissement:* NTN, 1+1 Intl., Kvartal TV, Inter+, Mega, K2
+📺 *Public:* Suspilne, IRT, Army TV
+🏙️ *Régional:* RAI, TVA, NTK, Dnipro, Chaîne 7, Rivne 1, ITV
+🎵 *Musique:* Muzvar, NASHE Music
 
-✅ HD · iOS · Android · Desktop`,
+✅ HD · iOS · Android · Desktop · 8 langues`,
 
     es: `🇺🇦 ¡Hola, ${name}!
 
-📺 *UKRAINE·TV — 15 canales en vivo en Telegram*
+📺 *UKRAINE·TV — 25 canales en vivo en Telegram*
 
 Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 
-📡 *Noticias:* Pershyi, Canal 5, Espreso, Ukraine 24, Kyiv 24
-🎬 *Entretenimiento:* NTN, 1+1 Intl., Kvartal TV, Inter+
-🎵 *Música:* Muzvar
+📡 *Noticias:* Pershyi, Canal 5, Espreso, Ukraine 24, Kyiv 24, 24 Canal, Rada
+🎬 *Entretenimiento:* NTN, 1+1 Intl., Kvartal TV, Inter+, Mega, K2
+📺 *Público:* Suspilne, IRT, Army TV
+🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Canal 7, Rivne 1, ITV
+🎵 *Música:* Muzvar, NASHE Music
 
-✅ HD · iOS · Android · Desktop`,
+✅ HD · iOS · Android · Desktop · 8 idiomas`,
   };
 
   const btnWatch = {
@@ -149,7 +162,7 @@ Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 bot.onText(/^\/post$/, async (msg) => {
   try {
     const post = await bot.sendMessage(CHANNEL,
-`🇺🇦 *УКРАЇ·НА·ТВ — 15 КАНАЛІВ НАЖИВО* 🔴
+`🇺🇦 *УКРАЇ·НА·ТВ — 25 КАНАЛІВ НАЖИВО* 🔴
 
 Дивіться *українські телеканали* прямо в Telegram — *безкоштовно, без VPN, без реєстрації, 24/7.*
 
@@ -160,15 +173,17 @@ bot.onText(/^\/post$/, async (msg) => {
 
 🎬 *РОЗВАГИ ТА КІНО*
 ▪️ НТН · 1+1 Міжнар. · Квартал ТВ · Інтер+
+▪️ Мега · К2
 
 📺 *СУСПІЛЬНЕ ТА ГРОМАДСЬКІ*
 ▪️ Суспільне Київ · IRT · Армія ТВ
 
 🏙️ *РЕГІОНАЛЬНІ*
 ▪️ RAI · TVA · NTK TV · Дніпро TV
+▪️ 7 Канал · Рівне 1 · ITV
 
 🎵 *МУЗИКА*
-▪️ Мюзвар
+▪️ Мюзвар · NASHE Music
 ━━━━━━━━━━━━━━━━━━━━
 
 ✅ HD · iOS · Android · Desktop · 8 мов

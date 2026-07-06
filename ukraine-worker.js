@@ -1,7 +1,7 @@
 // ukraine-worker.js — CF Worker для Ukraine TV Hub
 // Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '2.2.0';
+const VERSION = '2.3.0';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -23,6 +23,8 @@ const STREAMS = {
   oneplusone: 'https://dash2.antik.sk/live/test_one_plus_one_int_tizen/playlist.m3u8', // 1+1 Міжнар.
   kvartal:    'https://dash2.antik.sk/live/kvartal_tv/playlist.m3u8',                  // Квартал ТВ
   interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // Інтер+
+  mega:       'https://cdn15.live-tv.cloud/ua_infinitas_tv/mega-abr/playlist.m3u8',    // Мега
+  k2:         'https://cdn15.live-tv.cloud/ua_infinitas_tv/k2-abr/playlist.m3u8',      // К2
   rada:       'https://api-tv.ipnet.ua/api/v1/manifest/1312714970.m3u8',                  // Рада ТВ
   // ── Суспільне та громадські ──────────────────────────────
   suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Суспільне Київ
@@ -33,8 +35,12 @@ const STREAMS = {
   tva:        'https://hls.cdn.ua/tva.ua_live/livestream/chunklist_.m3u8',             // TVA
   ntk:        'http://stream.ntktv.ua/s/ntk/ntk.m3u8',                                // NTK TV
   dnipro:     'http://vcdn1.produck.company:1935/out/dtv/playlist.m3u8',               // Дніпро TV
+  ch7:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/7tvod-abr/playlist.m3u8',  // 7 Канал (Одеса)
+  rivne1:     'https://cdn1.live-tv.cloud/rivne1/rivne1-abr/playlist.m3u8',            // Рівне 1
+  itv:        'http://cdn10.live-tv.od.ua:8081/itvrv/abr/playlist.m3u8',              // ITV
   // ── Музика ───────────────────────────────────────────────
   muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // Мюзвар
+  nashemus:   'https://cdn15.live-tv.cloud/ua_infinitas_tv/nashemus-abr/playlist.m3u8', // NASHE Music
 };
 
 addEventListener('fetch', event => {
