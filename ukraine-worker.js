@@ -1,7 +1,7 @@
 // ukraine-worker.js — CF Worker для Ukraine TV Hub
 // Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '2.4.0';
+const VERSION = '2.5.0';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -49,6 +49,11 @@ const STREAMS = {
   // ── Дитячі ───────────────────────────────────────────────
   nikikids:   'https://iptv.prosto.tv/ch71/index.m3u8',                               // Niki Kids
   nikijunior: 'https://iptv.prosto.tv/ch72/index.m3u8',                               // Niki Junior
+  // ── Тематичні ────────────────────────────────────────────
+  rybalka:    'https://iptv.prosto.tv/ch88/index.m3u8',                               // Rybalka TV
+  uafashion:  'https://iptv.prosto.tv/ch216/index.m3u8',                              // UA Fashion TV
+  svarozhychy:'https://iptv.prosto.tv/ch168/index.m3u8',                              // Svarozhychy
+  equalympic: 'https://iptv.prosto.tv/ch215/index.m3u8',                              // Equalympic
 };
 
 addEventListener('fetch', event => {

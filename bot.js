@@ -14,7 +14,7 @@ bot.onText(/\/start/, (msg) => {
   const greetings = {
     uk: `🇺🇦 Привіт, ${name}!
 
-📺 *Україна ТВ — 32 канали наживо в Telegram*
+📺 *Україна ТВ — 36 каналів наживо в Telegram*
 
 Дивись українське телебачення онлайн — безкоштовно, без VPN, без реєстрації, 24/7.
 
@@ -24,12 +24,13 @@ bot.onText(/\/start/, (msg) => {
 🏙️ *Регіональні:* RAI, TVA, NTK, Дніпро, 7 Канал, Рівне 1, ITV
 🎵 *Музика:* Мюзвар, NASHE Music, М1, 4ever Music, UA Music
 👶 *Дитячі:* Niki Kids, Niki Junior
+🎯 *Тематичні:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 мов`,
 
     ru: `🇺🇦 Привет, ${name}!
 
-📺 *Україна ТВ — 32 канала прямого эфира в Telegram*
+📺 *Україна ТВ — 36 каналов прямого эфира в Telegram*
 
 Смотри украинское телевидение онлайн — бесплатно, без VPN, без регистрации, 24/7.
 
@@ -39,12 +40,13 @@ bot.onText(/\/start/, (msg) => {
 🏙️ *Региональные:* RAI, TVA, NTK, Днепр, 7 Канал, Ровно 1, ITV
 🎵 *Музыка:* Мюзвар, NASHE Music, М1, 4ever Music, UA Music
 👶 *Детские:* Niki Kids, Niki Junior
+🎯 *Тематические:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 языков`,
 
     en: `🇺🇦 Hello, ${name}!
 
-📺 *UKRAINE·TV — 32 channels live on Telegram*
+📺 *UKRAINE·TV — 36 channels live on Telegram*
 
 Watch Ukrainian television online — free, no VPN, no registration, 24/7.
 
@@ -54,12 +56,13 @@ Watch Ukrainian television online — free, no VPN, no registration, 24/7.
 🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Ch.7, Rivne 1, ITV
 🎵 *Music:* Muzvar, NASHE Music, M1, 4ever Music, UA Music
 👶 *Kids:* Niki Kids, Niki Junior
+🎯 *Niche:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 languages`,
 
     bg: `🇺🇦 Здравейте, ${name}!
 
-📺 *Україна ТВ — 32 украински канала на живо в Telegram*
+📺 *Україна ТВ — 36 украински канала на живо в Telegram*
 
 Гледайте украинска телевизия — безплатно, без VPN, без регистрация, 24/7.
 
@@ -69,12 +72,13 @@ Watch Ukrainian television online — free, no VPN, no registration, 24/7.
 🏙️ *Регионални:* RAI, TVA, NTK, Дніпро, 7 Канал, Рівне 1, ITV
 🎵 *Музика:* Мюзвар, NASHE Music, М1, 4ever Music, UA Music
 👶 *Детски:* Niki Kids, Niki Junior
+🎯 *Тематични:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 езика`,
 
     pl: `🇺🇦 Cześć, ${name}!
 
-📺 *UKRAINE·TV — 32 kanały na żywo w Telegram*
+📺 *UKRAINE·TV — 36 kanałów na żywo w Telegram*
 
 Oglądaj ukraińską telewizję — bezpłatnie, bez VPN, bez rejestracji, 24/7.
 
@@ -84,12 +88,13 @@ Oglądaj ukraińską telewizję — bezpłatnie, bez VPN, bez rejestracji, 24/7.
 🏙️ *Regionalne:* RAI, TVA, NTK, Dniepr, Kanał 7, Równe 1, ITV
 🎵 *Muzyka:* Muzvar, NASHE Music, M1, 4ever Music, UA Music
 👶 *Dla dzieci:* Niki Kids, Niki Junior
+🎯 *Tematyczne:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 języków`,
 
     de: `🇺🇦 Hallo, ${name}!
 
-📺 *UKRAINE·TV — 32 Sender live auf Telegram*
+📺 *UKRAINE·TV — 36 Sender live auf Telegram*
 
 Ukrainisches Fernsehen online — kostenlos, kein VPN, keine Anmeldung, 24/7.
 
@@ -99,12 +104,13 @@ Ukrainisches Fernsehen online — kostenlos, kein VPN, keine Anmeldung, 24/7.
 🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Kanal 7, Rivne 1, ITV
 🎵 *Musik:* Muzvar, NASHE Music, M1, 4ever Music, UA Music
 👶 *Kinder:* Niki Kids, Niki Junior
+🎯 *Thematisch:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 Sprachen`,
 
     fr: `🇺🇦 Bonjour, ${name}!
 
-📺 *UKRAINE·TV — 32 chaînes en direct sur Telegram*
+📺 *UKRAINE·TV — 36 chaînes en direct sur Telegram*
 
 Télévision ukrainienne — gratuit, sans VPN, sans inscription, 24/7.
 
@@ -114,12 +120,13 @@ Télévision ukrainienne — gratuit, sans VPN, sans inscription, 24/7.
 🏙️ *Régional:* RAI, TVA, NTK, Dnipro, Chaîne 7, Rivne 1, ITV
 🎵 *Musique:* Muzvar, NASHE Music, M1, 4ever Music, UA Music
 👶 *Enfants:* Niki Kids, Niki Junior
+🎯 *Thématiques:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 langues`,
 
     es: `🇺🇦 ¡Hola, ${name}!
 
-📺 *UKRAINE·TV — 32 canales en vivo en Telegram*
+📺 *UKRAINE·TV — 36 canales en vivo en Telegram*
 
 Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 
@@ -129,6 +136,7 @@ Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 🏙️ *Regional:* RAI, TVA, NTK, Dnipro, Canal 7, Rivne 1, ITV
 🎵 *Música:* Muzvar, NASHE Music, M1, 4ever Music, UA Music
 👶 *Infantil:* Niki Kids, Niki Junior
+🎯 *Temáticos:* Rybalka TV, UA Fashion TV, Svarozhychy, Equalympic
 
 ✅ HD · iOS · Android · Desktop · 8 idiomas`,
   };
@@ -170,7 +178,7 @@ Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 bot.onText(/^\/post$/, async (msg) => {
   try {
     const post = await bot.sendMessage(CHANNEL,
-`🇺🇦 *Україна ТВ — 32 КАНАЛИ НАЖИВО* 🔴
+`🇺🇦 *Україна ТВ — 36 КАНАЛІВ НАЖИВО* 🔴
 
 Дивіться *українські телеканали* прямо в Telegram — *безкоштовно, без VPN, без реєстрації, 24/7.*
 
@@ -196,6 +204,9 @@ bot.onText(/^\/post$/, async (msg) => {
 
 👶 *ДИТЯЧІ*
 ▪️ Niki Kids · Niki Junior
+
+🎯 *ТЕМАТИЧНІ*
+▪️ Rybalka TV · UA Fashion TV · Svarozhychy · Equalympic
 ━━━━━━━━━━━━━━━━━━━━
 
 ✅ HD · iOS · Android · Desktop · 8 мов
