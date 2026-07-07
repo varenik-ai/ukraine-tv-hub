@@ -1,7 +1,7 @@
 // ukraine-worker.js — CF Worker для Ukraine TV Hub
 // Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '2.3.0';
+const VERSION = '2.4.0';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -25,6 +25,8 @@ const STREAMS = {
   interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // Інтер+
   mega:       'https://cdn15.live-tv.cloud/ua_infinitas_tv/mega-abr/playlist.m3u8',    // Мега
   k2:         'https://cdn15.live-tv.cloud/ua_infinitas_tv/k2-abr/playlist.m3u8',      // К2
+  cinema4ever:'https://iptv.prosto.tv/ch42/index.m3u8',                               // 4ever Cinema
+  drama4ever: 'https://iptv.prosto.tv/ch49/index.m3u8',                               // 4ever Drama
   rada:       'https://api-tv.ipnet.ua/api/v1/manifest/1312714970.m3u8',                  // Рада ТВ
   // ── Суспільне та громадські ──────────────────────────────
   suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Суспільне Київ
@@ -41,6 +43,12 @@ const STREAMS = {
   // ── Музика ───────────────────────────────────────────────
   muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // Мюзвар
   nashemus:   'https://cdn15.live-tv.cloud/ua_infinitas_tv/nashemus-abr/playlist.m3u8', // NASHE Music
+  music4ever: 'https://iptv.prosto.tv/ch132/index.m3u8',                              // 4ever Music
+  uamusic:    'https://iptv.prosto.tv/ch133/index.m3u8',                              // UA Music
+  m1:         'https://iptv.prosto.tv/ch122/index.m3u8',                              // М1
+  // ── Дитячі ───────────────────────────────────────────────
+  nikikids:   'https://iptv.prosto.tv/ch71/index.m3u8',                               // Niki Kids
+  nikijunior: 'https://iptv.prosto.tv/ch72/index.m3u8',                               // Niki Junior
 };
 
 addEventListener('fetch', event => {
