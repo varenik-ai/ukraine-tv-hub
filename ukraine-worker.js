@@ -1,7 +1,7 @@
-// ukraine-worker.js — CF Worker для Ukraine TV Hub
-// Деплой: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
+// ukraine-worker.js â CF Worker Ð´Ð»Ñ Ukraine TV Hub
+// ÐÐµÐ¿Ð»Ð¾Ð¹: cd ~/ukraine-worker && cp ~/ukraine-tv-hub/ukraine-worker.js src/index.js && npx wrangler deploy
 
-const VERSION = '2.5.0';
+const VERSION = '2.5.1';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -9,47 +9,47 @@ const CORS = {
   'Access-Control-Allow-Headers': '*',
 };
 
-// Потоки украинских каналов (проверены через /debug)
+// ÐÐ¾ÑÐ¾ÐºÐ¸ ÑÐºÑÐ°Ð¸Ð½ÑÐºÐ¸Ñ ÐºÐ°Ð½Ð°Ð»Ð¾Ð² (Ð¿ÑÐ¾Ð²ÐµÑÐµÐ½Ñ ÑÐµÑÐµÐ· /debug)
 const STREAMS = {
-  // ── Новини та загальні ────────────────────────────────────
-  pershyi:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742505.m3u8',  // Перший канал
-  channel5:   'https://api-tv.ipnet.ua/api/v1/manifest/2118742539.m3u8',  // 5 Канал
-  espreso:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742594.m3u8',  // Еспресо ТВ
-  ukraine24:  'https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8', // Україна 24
-  kyiv24:     'https://api-tv.ipnet.ua/api/v1/manifest/1293296300.m3u8',  // Київ 24
-  news24:     'http://streamvideol1.luxnet.ua/news24/livenews_360p/index.m3u8',              // 24 Канал (прямий сегмент)
-  // ── Розваги та кіно ──────────────────────────────────────
-  ntn:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/ntn-abr/playlist.m3u8',     // НТН
-  oneplusone: 'https://dash2.antik.sk/live/test_one_plus_one_int_tizen/playlist.m3u8', // 1+1 Міжнар.
-  kvartal:    'https://dash2.antik.sk/live/kvartal_tv/playlist.m3u8',                  // Квартал ТВ
-  interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // Інтер+
-  mega:       'https://cdn15.live-tv.cloud/ua_infinitas_tv/mega-abr/playlist.m3u8',    // Мега
-  k2:         'https://cdn15.live-tv.cloud/ua_infinitas_tv/k2-abr/playlist.m3u8',      // К2
+  // ââ ÐÐ¾Ð²Ð¸Ð½Ð¸ ÑÐ° Ð·Ð°Ð³Ð°Ð»ÑÐ½Ñ ââââââââââââââââââââââââââââââââââââ
+  pershyi:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742505.m3u8',  // ÐÐµÑÑÐ¸Ð¹ ÐºÐ°Ð½Ð°Ð»
+  channel5:   'https://api-tv.ipnet.ua/api/v1/manifest/2118742539.m3u8',  // 5 ÐÐ°Ð½Ð°Ð»
+  espreso:    'https://api-tv.ipnet.ua/api/v1/manifest/2118742594.m3u8',  // ÐÑÐ¿ÑÐµÑÐ¾ Ð¢Ð
+  ukraine24:  'https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8', // Ð£ÐºÑÐ°ÑÐ½Ð° 24
+  kyiv24:     'https://ext.cdn.nashnet.tv/228.0.0.15/index.m3u8',  // ÐÐ¸ÑÐ² 24
+  news24:     'http://streamvideol1.luxnet.ua/news24/livenews_360p/index.m3u8',              // 24 ÐÐ°Ð½Ð°Ð» (Ð¿ÑÑÐ¼Ð¸Ð¹ ÑÐµÐ³Ð¼ÐµÐ½Ñ)
+  // ââ Ð Ð¾Ð·Ð²Ð°Ð³Ð¸ ÑÐ° ÐºÑÐ½Ð¾ ââââââââââââââââââââââââââââââââââââââ
+  ntn:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/ntn-abr/playlist.m3u8',     // ÐÐ¢Ð
+  oneplusone: 'https://dash2.antik.sk/live/test_one_plus_one_int_tizen/playlist.m3u8', // 1+1 ÐÑÐ¶Ð½Ð°Ñ.
+  kvartal:    'https://dash2.antik.sk/live/kvartal_tv/playlist.m3u8',                  // ÐÐ²Ð°ÑÑÐ°Ð» Ð¢Ð
+  interplus:  'https://cdn15.live-tv.cloud/ua_infinitas_tv/inter-abr/playlist.m3u8',   // ÐÐ½ÑÐµÑ+
+  mega:       'https://cdn15.live-tv.cloud/ua_infinitas_tv/mega-abr/playlist.m3u8',    // ÐÐµÐ³Ð°
+  k2:         'https://cdn15.live-tv.cloud/ua_infinitas_tv/k2-abr/playlist.m3u8',      // Ð2
   cinema4ever:'https://iptv.prosto.tv/ch42/index.m3u8',                               // 4ever Cinema
   drama4ever: 'https://iptv.prosto.tv/ch49/index.m3u8',                               // 4ever Drama
-  rada:       'https://api-tv.ipnet.ua/api/v1/manifest/1312714970.m3u8',                  // Рада ТВ
-  // ── Суспільне та громадські ──────────────────────────────
-  suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Суспільне Київ
+  rada:       'https://api-tv.ipnet.ua/api/v1/manifest/1312714970.m3u8',                  // Ð Ð°Ð´Ð° Ð¢Ð
+  // ââ Ð¡ÑÑÐ¿ÑÐ»ÑÐ½Ðµ ÑÐ° Ð³ÑÐ¾Ð¼Ð°Ð´ÑÑÐºÑ ââââââââââââââââââââââââââââââ
+  suspilne:   'https://live-nstu.cdn-03.cosmonova.net.ua/mobile-app/main/nstu-kyiv/master.m3u8', // Ð¡ÑÑÐ¿ÑÐ»ÑÐ½Ðµ ÐÐ¸ÑÐ²
   irt:        'https://stream.irt.ua/memfs/8fac7cbb-3356-4a03-bb77-4439b727ebd2.m3u8', // IRT
-  armytv:     'https://api-tv.ipnet.ua/api/v1/manifest/2118742632.m3u8',               // Армія ТВ
-  // ── Регіональні ──────────────────────────────────────────
+  armytv:     'https://api-tv.ipnet.ua/api/v1/manifest/2118742632.m3u8',               // ÐÑÐ¼ÑÑ Ð¢Ð
+  // ââ Ð ÐµÐ³ÑÐ¾Ð½Ð°Ð»ÑÐ½Ñ ââââââââââââââââââââââââââââââââââââââââââ
   rai:        'https://stream.rai.ua/rai/stream.m3u8',                                 // RAI
   tva:        'https://hls.cdn.ua/tva.ua_live/livestream/chunklist_.m3u8',             // TVA
   ntk:        'http://stream.ntktv.ua/s/ntk/ntk.m3u8',                                // NTK TV
-  dnipro:     'http://vcdn1.produck.company:1935/out/dtv/playlist.m3u8',               // Дніпро TV
-  ch7:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/7tvod-abr/playlist.m3u8',  // 7 Канал (Одеса)
-  rivne1:     'https://cdn1.live-tv.cloud/rivne1/rivne1-abr/playlist.m3u8',            // Рівне 1
+  dnipro:     'http://vcdn1.produck.company:1935/out/dtv/playlist.m3u8',               // ÐÐ½ÑÐ¿ÑÐ¾ TV
+  ch7:        'https://cdn15.live-tv.cloud/ua_infinitas_tv/7tvod-abr/playlist.m3u8',  // 7 ÐÐ°Ð½Ð°Ð» (ÐÐ´ÐµÑÐ°)
+  rivne1:     'https://cdn1.live-tv.cloud/rivne1/rivne1-abr/playlist.m3u8',            // Ð ÑÐ²Ð½Ðµ 1
   itv:        'http://cdn10.live-tv.od.ua:8081/itvrv/abr/playlist.m3u8',              // ITV
-  // ── Музика ───────────────────────────────────────────────
-  muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // Мюзвар
+  // ââ ÐÑÐ·Ð¸ÐºÐ° âââââââââââââââââââââââââââââââââââââââââââââââ
+  muzvar:     'https://cdn15.live-tv.cloud/ua_infinitas_tv/muzvar-abr/playlist.m3u8',  // ÐÑÐ·Ð²Ð°Ñ
   nashemus:   'https://cdn15.live-tv.cloud/ua_infinitas_tv/nashemus-abr/playlist.m3u8', // NASHE Music
   music4ever: 'https://iptv.prosto.tv/ch132/index.m3u8',                              // 4ever Music
   uamusic:    'https://iptv.prosto.tv/ch133/index.m3u8',                              // UA Music
-  m1:         'https://iptv.prosto.tv/ch122/index.m3u8',                              // М1
-  // ── Дитячі ───────────────────────────────────────────────
+  m1:         'https://iptv.prosto.tv/ch122/index.m3u8',                              // Ð1
+  // ââ ÐÐ¸ÑÑÑÑ âââââââââââââââââââââââââââââââââââââââââââââââ
   nikikids:   'https://iptv.prosto.tv/ch71/index.m3u8',                               // Niki Kids
   nikijunior: 'https://iptv.prosto.tv/ch72/index.m3u8',                               // Niki Junior
-  // ── Тематичні ────────────────────────────────────────────
+  // ââ Ð¢ÐµÐ¼Ð°ÑÐ¸ÑÐ½Ñ ââââââââââââââââââââââââââââââââââââââââââââ
   rybalka:    'https://iptv.prosto.tv/ch88/index.m3u8',                               // Rybalka TV
   uafashion:  'https://iptv.prosto.tv/ch216/index.m3u8',                              // UA Fashion TV
   svarozhychy:'https://iptv.prosto.tv/ch168/index.m3u8',                              // Svarozhychy
@@ -68,7 +68,7 @@ async function handleRequest(request) {
     return new Response(null, { status: 204, headers: CORS });
   }
 
-  // /stream?channel=NAME — отримати проксі-потік для каналу
+  // /stream?channel=NAME â Ð¾ÑÑÐ¸Ð¼Ð°ÑÐ¸ Ð¿ÑÐ¾ÐºÑÑ-Ð¿Ð¾ÑÑÐº Ð´Ð»Ñ ÐºÐ°Ð½Ð°Ð»Ñ
   if (path === '/stream') {
     const channel = url.searchParams.get('channel');
     const streamUrl = STREAMS[channel];
@@ -81,7 +81,7 @@ async function handleRequest(request) {
     return fetchM3u8(streamUrl, url.origin);
   }
 
-  // /proxy?url=ENCODED_URL — проксі для плейлистів та сегментів
+  // /proxy?url=ENCODED_URL â Ð¿ÑÐ¾ÐºÑÑ Ð´Ð»Ñ Ð¿Ð»ÐµÐ¹Ð»Ð¸ÑÑÑÐ² ÑÐ° ÑÐµÐ³Ð¼ÐµÐ½ÑÑÐ²
   if (path === '/proxy') {
     const target = url.searchParams.get('url');
     if (!target) {
@@ -90,7 +90,7 @@ async function handleRequest(request) {
     return proxyTarget(target, url.origin);
   }
 
-  // /debug?url=ENCODED_URL — перевірка доступності URL через CF Worker
+  // /debug?url=ENCODED_URL â Ð¿ÐµÑÐµÐ²ÑÑÐºÐ° Ð´Ð¾ÑÑÑÐ¿Ð½Ð¾ÑÑÑ URL ÑÐµÑÐµÐ· CF Worker
   if (path === '/debug') {
     const target = url.searchParams.get('url');
     if (!target) {
@@ -123,10 +123,10 @@ async function handleRequest(request) {
   return new Response(`Ukraine TV Worker v${VERSION}`, { headers: CORS });
 }
 
-// ── User-Agent для запитів до CDN ─────────────────────────────────────────
+// ââ User-Agent Ð´Ð»Ñ Ð·Ð°Ð¿Ð¸ÑÑÐ² Ð´Ð¾ CDN âââââââââââââââââââââââââââââââââââââââââ
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
-// ── Розв'язати відносний URL відносно базового ────────────────────────────
+// ââ Ð Ð¾Ð·Ð²'ÑÐ·Ð°ÑÐ¸ Ð²ÑÐ´Ð½Ð¾ÑÐ½Ð¸Ð¹ URL Ð²ÑÐ´Ð½Ð¾ÑÐ½Ð¾ Ð±Ð°Ð·Ð¾Ð²Ð¾Ð³Ð¾ ââââââââââââââââââââââââââââ
 function resolveUrl(base, relative) {
   if (!relative) return base;
   if (relative.startsWith('http://') || relative.startsWith('https://')) return relative;
@@ -137,12 +137,12 @@ function resolveUrl(base, relative) {
   }
 }
 
-// ── Визначити базовий URL для m3u8-плейлиста (директорія файлу) ───────────
+// ââ ÐÐ¸Ð·Ð½Ð°ÑÐ¸ÑÐ¸ Ð±Ð°Ð·Ð¾Ð²Ð¸Ð¹ URL Ð´Ð»Ñ m3u8-Ð¿Ð»ÐµÐ¹Ð»Ð¸ÑÑÐ° (Ð´Ð¸ÑÐµÐºÑÐ¾ÑÑÑ ÑÐ°Ð¹Ð»Ñ) âââââââââââ
 function baseDir(url) {
   return url.substring(0, url.lastIndexOf('/') + 1);
 }
 
-// ── Переписати m3u8: всі URL → /proxy?url=... ─────────────────────────────
+// ââ ÐÐµÑÐµÐ¿Ð¸ÑÐ°ÑÐ¸ m3u8: Ð²ÑÑ URL â /proxy?url=... âââââââââââââââââââââââââââââ
 function rewriteM3u8(content, sourceUrl, workerOrigin) {
   const base = baseDir(sourceUrl);
   const lines = content.split('\n');
@@ -151,22 +151,22 @@ function rewriteM3u8(content, sourceUrl, workerOrigin) {
   for (const rawLine of lines) {
     const line = rawLine.trimEnd();
 
-    // Пропустити треки субтитрів — викликають помилки hls.js
+    // ÐÑÐ¾Ð¿ÑÑÑÐ¸ÑÐ¸ ÑÑÐµÐºÐ¸ ÑÑÐ±ÑÐ¸ÑÑÑÐ² â Ð²Ð¸ÐºÐ»Ð¸ÐºÐ°ÑÑÑ Ð¿Ð¾Ð¼Ð¸Ð»ÐºÐ¸ hls.js
     if (line.startsWith('#EXT-X-MEDIA') && line.includes('TYPE=SUBTITLES')) continue;
 
     if (line === '' || line.startsWith('#')) {
-      // Переписати URI= всередині тегів (EXT-X-KEY, EXT-X-MEDIA, EXT-X-MAP тощо)
+      // ÐÐµÑÐµÐ¿Ð¸ÑÐ°ÑÐ¸ URI= Ð²ÑÐµÑÐµÐ´Ð¸Ð½Ñ ÑÐµÐ³ÑÐ² (EXT-X-KEY, EXT-X-MEDIA, EXT-X-MAP ÑÐ¾ÑÐ¾)
       let fixed = line.replace(/URI="([^"]+)"/g, (_, uri) => {
         const abs = resolveUrl(base, uri);
         return `URI="${workerOrigin}/proxy?url=${encodeURIComponent(abs)}"`;
       });
-      // Прибрати атрибут SUBTITLES="..." з EXT-X-STREAM-INF
+      // ÐÑÐ¸Ð±ÑÐ°ÑÐ¸ Ð°ÑÑÐ¸Ð±ÑÑ SUBTITLES="..." Ð· EXT-X-STREAM-INF
       if (fixed.startsWith('#EXT-X-STREAM-INF')) {
         fixed = fixed.replace(/,?SUBTITLES="[^"]*"/, '');
       }
       out.push(fixed);
     } else {
-      // Рядок-URL (сегмент TS або суб-плейліст)
+      // Ð ÑÐ´Ð¾Ðº-URL (ÑÐµÐ³Ð¼ÐµÐ½Ñ TS Ð°Ð±Ð¾ ÑÑÐ±-Ð¿Ð»ÐµÐ¹Ð»ÑÑÑ)
       const abs = resolveUrl(base, line);
       out.push(`${workerOrigin}/proxy?url=${encodeURIComponent(abs)}`);
     }
@@ -175,7 +175,7 @@ function rewriteM3u8(content, sourceUrl, workerOrigin) {
   return out.join('\n');
 }
 
-// ── Отримати мастер-плейліст і переписати для проксі ─────────────────────
+// ââ ÐÑÑÐ¸Ð¼Ð°ÑÐ¸ Ð¼Ð°ÑÑÐµÑ-Ð¿Ð»ÐµÐ¹Ð»ÑÑÑ Ñ Ð¿ÐµÑÐµÐ¿Ð¸ÑÐ°ÑÐ¸ Ð´Ð»Ñ Ð¿ÑÐ¾ÐºÑÑ âââââââââââââââââââââ
 async function fetchM3u8(streamUrl, workerOrigin) {
   let res;
   try {
@@ -211,7 +211,7 @@ async function fetchM3u8(streamUrl, workerOrigin) {
   });
 }
 
-// ── Проксі для довільного URL (суб-плейліст або сегмент) ──────────────────
+// ââ ÐÑÐ¾ÐºÑÑ Ð´Ð»Ñ Ð´Ð¾Ð²ÑÐ»ÑÐ½Ð¾Ð³Ð¾ URL (ÑÑÐ±-Ð¿Ð»ÐµÐ¹Ð»ÑÑÑ Ð°Ð±Ð¾ ÑÐµÐ³Ð¼ÐµÐ½Ñ) ââââââââââââââââââ
 async function proxyTarget(targetUrl, workerOrigin) {
   let res;
   try {
@@ -232,7 +232,7 @@ async function proxyTarget(targetUrl, workerOrigin) {
   }
 
   const ct = (res.headers.get('Content-Type') || '').toLowerCase();
-  // TS-сегмент має пріоритет — інакше "playlist_X.ts" помилково детектується як m3u8
+  // TS-ÑÐµÐ³Ð¼ÐµÐ½Ñ Ð¼Ð°Ñ Ð¿ÑÑÐ¾ÑÐ¸ÑÐµÑ â ÑÐ½Ð°ÐºÑÐµ "playlist_X.ts" Ð¿Ð¾Ð¼Ð¸Ð»ÐºÐ¾Ð²Ð¾ Ð´ÐµÑÐµÐºÑÑÑÑÑÑÑ ÑÐº m3u8
   const isTs = /\.ts([?#]|$)/.test(targetUrl) || ct.includes('video/') || ct.includes('audio/') || ct.includes('octet-stream');
   const isM3u8 = !isTs && (ct.includes('mpegurl') || ct.includes('m3u') ||
                  targetUrl.includes('.m3u8') || targetUrl.includes('playlist') ||
@@ -250,7 +250,7 @@ async function proxyTarget(targetUrl, workerOrigin) {
     });
   }
 
-  // Бінарний сегмент — стримимо напряму
+  // ÐÑÐ½Ð°ÑÐ½Ð¸Ð¹ ÑÐµÐ³Ð¼ÐµÐ½Ñ â ÑÑÑÐ¸Ð¼Ð¸Ð¼Ð¾ Ð½Ð°Ð¿ÑÑÐ¼Ñ
   return new Response(res.body, {
     status: res.status,
     headers: {
