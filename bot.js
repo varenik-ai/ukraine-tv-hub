@@ -1,6 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-const TOKEN   = '8812314888:AAHQUForF-5ZCYknsvPWus9chVcK4mHJ9Zc';
+require('dotenv').config();
+const TOKEN = process.env.BOT_TOKEN;
+const ADMIN_IDS = (process.env.ADMIN_IDS || '').split(',').filter(Boolean).map(Number);
+if (!TOKEN) { console.error('BOT_TOKEN is not set (see .env.example)'); process.exit(1); }
 const CHANNEL = '@UkraineTVHub';
 const APP_URL = 'https://t.me/UkraineTVHub_bot/ukrainetv';
 const WEB_URL = 'https://varenik-ai.github.io/ukraine-tv-hub/?v=1';
@@ -176,6 +179,7 @@ Televisión ucraniana — gratis, sin VPN, sin registro, 24/7.
 
 // /post — публікує і закріплює пост у каналі
 bot.onText(/^\/post$/, async (msg) => {
+  if (!ADMIN_IDS.includes(msg.from.id)) return;
   try {
     const post = await bot.sendMessage(CHANNEL,
 `🇺🇦 *Україна ТВ — 36 КАНАЛІВ НАЖИВО* 🔴
