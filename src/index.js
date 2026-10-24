@@ -7,7 +7,7 @@ import { STREAMS, SEG_PROXY_CHANNELS, SEG_PROXY_DOMAINS } from './streams.genera
 
 const VERSION = '3.0.0';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
-const ALLOWED_ORIGINS = ['https://ukraine-tv.uk', 'https://www.ukraine-tv.uk', 'https://varenik-ai.github.io'];
+const DEFAULT_ORIGINS = ['https://ukraine-tv.uk', 'https://www.ukraine-tv.uk', 'https://varenik-ai.github.io'];
 const SEGMENT_EXT = /\.(ts|m4s|mp4|aac|m4a|cmfv|cmfa|vtt|webvtt|key)(\?|$)/i;
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -24,9 +24,10 @@ const json = (obj, status = 200) =>
 const text = (msg, status) => new Response(msg, { status, headers: { ...CORS, ...NO_STORE } });
 
 // Браузер всегда шлёт Origin на cross-origin запрос; нативный iOS-плеер — не шлёт, его пропускаем.
-function originOk(request) {
+function originOk(request, env) {
   const o = request.headers.get('Origin');
-  return !o || ALLOWED_ORIGINS.includes(o);
+  const allowed = env && env.ALLOWED_ORIGINS ? env.ALLOWED_ORIGINS.split(',') : DEFAULT_ORIGINS; // env — только для локальной разработки
+  return !o || allowed.includes(o);
 }
 
 const underDomain = (host, domains) => domains.some((d) => host === d || host.endsWith('.' + d));
@@ -80,7 +81,7 @@ async function playlistResponse(srcUrl, self, channel) {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url);
     const self = url.origin;
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: CORS });
@@ -92,7 +93,7 @@ export default {
       case '/proxy':
         return text('gone', 410);
       case '/stream': {
-        if (!originOk(request)) return text('forbidden origin', 403);
+        if (!originOk(request, env)) return text('forbidden origin', 403);
         const channel = url.searchParams.get('channel');
         const src = STREAMS[channel];
         if (!src) return text('unknown channel', 404);
@@ -103,7 +104,7 @@ export default {
         }
       }
       case '/playlist': {
-        if (!originOk(request)) return text('forbidden origin', 403);
+        if (!originOk(request, env)) return text('forbidden origin', 403);
         const channel = url.searchParams.get('c') || '';
         let target;
         try { target = new URL(url.searchParams.get('url') || ''); } catch { return text('bad url', 400); }
@@ -117,7 +118,7 @@ export default {
         }
       }
       case '/seg': {
-        if (!originOk(request)) return text('forbidden origin', 403);
+        if (!originOk(request, env)) return text('forbidden origin', 403);
         const channel = url.searchParams.get('c') || '';
         if (!SEG_CHANNELS.has(channel)) return text('segment proxy disabled for this channel', 403);
         let target;
