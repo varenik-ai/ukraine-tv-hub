@@ -1,11 +1,12 @@
 // Ukraine TV worker v3.0.0 — режим «только плейлисты» (по образцу russia-worker).
 // /stream  — плейлист канала; сегменты отдаются источником напрямую (абсолютные URL)
+// /stream-q — то же, но мастер урезан до одного уровня (?q=kbps) — фиксированное качество на iOS
 // /playlist — вложенные плейлисты (только домены источников)
 // /seg     — сегменты ТОЛЬКО для каналов без CORS (SEG_PROXY_CHANNELS), только их домены
 // /proxy и /debug убраны (открытый relay закрыт).
 import { STREAMS, SEG_PROXY_CHANNELS, SEG_PROXY_DOMAINS } from './streams.generated.js';
 
-const VERSION = '3.0.0';
+const VERSION = '3.1.0';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 const DEFAULT_ORIGINS = ['https://ukraine-tv.uk', 'https://www.ukraine-tv.uk', 'https://varenik-ai.github.io'];
 const SEGMENT_EXT = /\.(ts|m4s|mp4|aac|m4a|cmfv|cmfa|vtt|webvtt|key)(\?|$)/i;
@@ -70,11 +71,26 @@ function rewritePlaylist(body, baseUrl, self, channel) {
     .join('\n');
 }
 
-async function playlistResponse(srcUrl, self, channel) {
+// Оставляет в мастер-плейлисте один уровень — ближайший к запрошенному битрейту (фиксированное качество на iOS)
+function pickVariant(body, wantBw) {
+  const lines = body.split('\n');
+  const variants = [];
+  lines.forEach((l, i) => {
+    if (l.startsWith('#EXT-X-STREAM-INF')) { const m = l.match(/BANDWIDTH=(\d+)/); variants.push({ i, bw: m ? +m[1] : 0 }); }
+  });
+  if (variants.length < 2) return body;
+  const best = variants.reduce((a, b) => (Math.abs(b.bw - wantBw) < Math.abs(a.bw - wantBw) ? b : a));
+  const drop = new Set();
+  variants.forEach((v) => { if (v !== best) { drop.add(v.i); drop.add(v.i + 1); } });
+  return lines.filter((l, i) => !drop.has(i) && !l.startsWith('#EXT-X-I-FRAME-STREAM-INF')).join('\n');
+}
+
+async function playlistResponse(srcUrl, self, channel, wantBw) {
   const up = await fetch(srcUrl, { headers: upstreamHeaders(srcUrl), cf: { cacheTtl: 0 } });
   if (!up.ok) return text(`upstream ${up.status}`, 502);
-  const body = await up.text();
+  let body = await up.text();
   if (!body.includes('#EXTM3U')) return text('upstream is not a playlist', 502);
+  if (wantBw) body = pickVariant(body, wantBw);
   return new Response(rewritePlaylist(body, up.url || srcUrl, self, channel), {
     headers: { ...CORS, ...NO_STORE, 'Content-Type': 'application/vnd.apple.mpegurl' },
   });
@@ -99,6 +115,19 @@ export default {
         if (!src) return text('unknown channel', 404);
         try {
           return await playlistResponse(src, self, channel);
+        } catch (e) {
+          return text('fetch error', 502);
+        }
+      }
+      case '/stream-q': {
+        if (!originOk(request, env)) return text('forbidden origin', 403);
+        const channel = url.searchParams.get('channel');
+        const src = STREAMS[channel];
+        const kbps = parseInt(url.searchParams.get('q') || '', 10);
+        if (!src) return text('unknown channel', 404);
+        if (!(kbps > 0)) return text('bad q', 400);
+        try {
+          return await playlistResponse(src, self, channel, kbps * 1000);
         } catch (e) {
           return text('fetch error', 502);
         }

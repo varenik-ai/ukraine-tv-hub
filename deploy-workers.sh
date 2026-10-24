@@ -4,6 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 python3 tools/gen_worker_streams.py ${REGISTRY:+"$REGISTRY"}
+python3 tools/gen_app_channels.py ${APP_CHANNELS:+"$APP_CHANNELS"}
 node --no-warnings tools/test_worker.mjs
 for n in ukraine-stream-a ukraine-stream-b ukraine-stream-c; do
   echo "== deploy $n"

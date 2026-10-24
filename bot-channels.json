@@ -1,0 +1,212 @@
+{
+ "n": 33,
+ "groups": [
+  {
+   "cat": "news",
+   "emoji": "📡",
+   "channels": [
+    {
+     "uk": "Перший канал",
+     "en": "Pershyi",
+     "ru": "Перший канал"
+    },
+    {
+     "uk": "5 Канал",
+     "en": "5 Kanal",
+     "ru": "5 Канал"
+    },
+    {
+     "uk": "Еспресо ТВ",
+     "en": "Espreso TV",
+     "ru": "Эспрессо ТВ"
+    },
+    {
+     "uk": "Київ 24",
+     "en": "Kyiv 24",
+     "ru": "Киев 24"
+    },
+    {
+     "uk": "24 Канал",
+     "en": "24 Kanal",
+     "ru": "24 Канал"
+    },
+    {
+     "uk": "Рада ТВ",
+     "en": "Rada TV",
+     "ru": "Рада ТВ"
+    },
+    {
+     "uk": "1+1 Марафон",
+     "en": "1+1 Marathon",
+     "ru": "1+1 Марафон"
+    }
+   ]
+  },
+  {
+   "cat": "entertainment",
+   "emoji": "🎬",
+   "channels": [
+    {
+     "uk": "НТН",
+     "en": "NTN",
+     "ru": "НТН"
+    },
+    {
+     "uk": "Інтер",
+     "en": "Inter",
+     "ru": "Интер"
+    },
+    {
+     "uk": "1+1 Міжнародний",
+     "en": "1+1 International",
+     "ru": "1+1 Международный"
+    },
+    {
+     "uk": "Квартал ТВ",
+     "en": "Kvartal TV",
+     "ru": "Квартал ТВ"
+    },
+    {
+     "uk": "Мега",
+     "en": "Mega",
+     "ru": "Мега"
+    },
+    {
+     "uk": "К2",
+     "en": "K2",
+     "ru": "К2"
+    },
+    {
+     "uk": "FilmUA Live",
+     "en": "FilmUA Live",
+     "ru": "FilmUA Live"
+    },
+    {
+     "uk": "4ever Cinema",
+     "en": "4ever Cinema",
+     "ru": "4ever Cinema"
+    },
+    {
+     "uk": "4ever Drama",
+     "en": "4ever Drama",
+     "ru": "4ever Drama"
+    }
+   ]
+  },
+  {
+   "cat": "public",
+   "emoji": "📺",
+   "channels": [
+    {
+     "uk": "Армія ТВ",
+     "en": "Army TV",
+     "ru": "Армия ТВ"
+    },
+    {
+     "uk": "IRT",
+     "en": "IRT",
+     "ru": "IRT"
+    }
+   ]
+  },
+  {
+   "cat": "regional",
+   "emoji": "🏙️",
+   "channels": [
+    {
+     "uk": "RAI",
+     "en": "RAI",
+     "ru": "RAI"
+    },
+    {
+     "uk": "TVA",
+     "en": "TVA",
+     "ru": "TVA"
+    },
+    {
+     "uk": "NTK TV",
+     "en": "NTK TV",
+     "ru": "NTK TV"
+    },
+    {
+     "uk": "7 Канал",
+     "en": "7 Kanal",
+     "ru": "7 Канал"
+    }
+   ]
+  },
+  {
+   "cat": "music",
+   "emoji": "🎵",
+   "channels": [
+    {
+     "uk": "Мюзвар",
+     "en": "Muzvar",
+     "ru": "Мюзвар"
+    },
+    {
+     "uk": "NASHE Music",
+     "en": "NASHE Music",
+     "ru": "NASHE Music"
+    },
+    {
+     "uk": "М1",
+     "en": "M1",
+     "ru": "М1"
+    },
+    {
+     "uk": "4ever Music",
+     "en": "4ever Music",
+     "ru": "4ever Music"
+    },
+    {
+     "uk": "UA Music",
+     "en": "UA Music",
+     "ru": "UA Music"
+    }
+   ]
+  },
+  {
+   "cat": "kids",
+   "emoji": "👶",
+   "channels": [
+    {
+     "uk": "Niki Kids",
+     "en": "Niki Kids",
+     "ru": "Niki Kids"
+    },
+    {
+     "uk": "Niki Junior",
+     "en": "Niki Junior",
+     "ru": "Niki Junior"
+    }
+   ]
+  },
+  {
+   "cat": "thematic",
+   "emoji": "🎯",
+   "channels": [
+    {
+     "uk": "Rybalka TV",
+     "en": "Rybalka TV",
+     "ru": "Rybalka TV"
+    },
+    {
+     "uk": "UA Fashion TV",
+     "en": "UA Fashion TV",
+     "ru": "UA Fashion TV"
+    },
+    {
+     "uk": "Svarozhychy",
+     "en": "Svarozhychy",
+     "ru": "Svarozhychy"
+    },
+    {
+     "uk": "Equalympic",
+     "en": "Equalympic",
+     "ru": "Equalympic"
+    }
+   ]
+  }
+ ]
+}

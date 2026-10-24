@@ -4,5 +4,11 @@
   "dependencies": {
     "node-telegram-bot-api": "^0.66.0",
     "dotenv": "^16.4.5"
+  },
+  "scripts": {
+    "bot": "node bot.js",
+    "test": "node --no-warnings tools/test_worker.mjs",
+    "gen": "python3 tools/gen_worker_streams.py && python3 tools/gen_app_channels.py",
+    "dev": "node --no-warnings tools/dev_server.mjs ../ukraine-tv.uk"
   }
 }

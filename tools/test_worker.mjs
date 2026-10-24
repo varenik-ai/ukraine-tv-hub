@@ -5,7 +5,7 @@ const get = (path, headers = {}) => worker.fetch(new Request(SELF + path, { head
 let fail = 0;
 const t = async (name, fn) => { try { const r = await fn(); console.log(r === true ? 'PASS' : 'FAIL', name, r === true ? '' : r); if (r !== true) fail++; } catch (e) { console.log('FAIL', name, e.message); fail++; } };
 
-await t('/version', async () => { const j = await (await get('/version')).json(); return j.version === '3.0.0' && j.mode === 'playlist-only' || JSON.stringify(j); });
+await t('/version', async () => { const j = await (await get('/version')).json(); return j.version === '3.1.0' && j.mode === 'playlist-only' || JSON.stringify(j); });
 await t('/proxy -> 410', async () => (await get('/proxy?url=https://example.com/')).status === 410 || 'not 410');
 await t('/debug -> 404', async () => (await get('/debug?url=https://example.com/')).status === 404 || 'not 404');
 await t('unknown channel -> 404', async () => (await get('/stream?channel=nope')).status === 404 || 'not 404');
@@ -14,6 +14,17 @@ await t('/playlist foreign host -> 403', async () => (await get('/playlist?c=rad
 await t('/playlist segment url -> 403', async () => (await get('/playlist?c=rada&url=' + encodeURIComponent('https://cdn15.live-tv.cloud/x/seg.ts'))).status === 403 || 'not 403');
 await t('/seg for non-seg channel -> 403', async () => (await get('/seg?c=rada&u=' + encodeURIComponent('https://cdn4.ipnet.ua/x.ts'))).status === 403 || 'not 403');
 await t('/seg foreign host -> 403', async () => (await get('/seg?c=pershyi&u=' + encodeURIComponent('https://example.com/x.ts'))).status === 403 || 'not 403');
+
+await t('/stream-q bad q -> 400', async () => (await get('/stream-q?channel=rada&q=0')).status === 400 || 'not 400');
+await t('/stream-q keeps one variant', async () => {
+  const full = await (await get('/stream?channel=rada')).text();
+  const levels = [...full.matchAll(/BANDWIDTH=(\d+)/g)].map((m) => +m[1]);
+  if (levels.length < 2) return 'source has <2 levels: ' + levels;
+  const q = Math.round(Math.min(...levels) / 1000);
+  const one = await (await get('/stream-q?channel=rada&q=' + q)).text();
+  const n = (one.match(/#EXT-X-STREAM-INF/g) || []).length;
+  return (n === 1 && one.includes('BANDWIDTH=' + Math.min(...levels))) || 'variants=' + n;
+});
 
 async function walk(ch, expectSeg) {
   const o = { Origin: 'https://ukraine-tv.uk' };
