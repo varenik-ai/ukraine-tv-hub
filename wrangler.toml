@@ -1,0 +1,5 @@
+# Деплой: npx wrangler deploy -c wrangler.toml --name <ukraine-worker | имя-копии>
+name = "ukraine-worker"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
