@@ -3,3 +3,4 @@ bot.log
 .DS_Store
 .env
 .cf.env
+.channel-post.json
