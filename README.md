@@ -35,6 +35,8 @@ REGISTRY=../ukraine-tv.uk/data/channels.json APP_CHANNELS=../ukraine-tv.uk/data/
 Cloudflare Worker `ukraine-tv-bot` (webhook, `https://ukraine-tv-bot.dyaltd.workers.dev`):
 - `/start` — приветствие на языке Telegram пользователя (8 языков) со списком каналов и кнопками «Открыть Ukraine TV Live» / «Открыть в браузере»;
 - `/post` — только для `ADMIN_IDS` и только в личном чате: обновляет закреплённый пост канала `@UkraineTVHub` на месте или публикует и закрепляет новый;
+- `/fixpost` (админ) — добавляет кнопки под закреплённым постом, не меняя текст;
+- `GET /invoice?amount=N` — счёт Telegram Stars для кнопки «Подякувати» (см. `DONATE.md`); обрабатываются `pre_checkout_query` и `successful_payment`;
 - `/webhook` проверяет заголовок `X-Telegram-Bot-Api-Secret-Token`; `/health` — проверка живости.
 
 Секреты воркера: `BOT_TOKEN`, `WEBHOOK_SECRET`, `ADMIN_IDS`. Настройка один раз: заполнить `.env` (`BOT_TOKEN`, `ADMIN_IDS`; см. `.env.example`) и запустить `./setup-bot.sh` (тесты, деплой, секреты, webhook, команды, кнопка меню). Токен не печатается. Тесты: `node tools/test_bot.mjs`. После смены списка каналов: `python3 tools/gen_app_channels.py …` и `npx wrangler deploy -c bot-worker/wrangler.toml`.
@@ -52,4 +54,5 @@ Cloudflare Worker `ukraine-tv-bot` (webhook, `https://ukraine-tv-bot.dyaltd.work
 | `setup-bot.sh`, `.env.example` | первичная настройка бота |
 | `index.html`, `bot-channels.json` | мини-апп и данные для бота (генерируются) |
 | `tools/` | генераторы, тесты, локальный сервер |
+| `DONATE.md` | кнопка «Подякувати» (Stars): как устроена, как включить и проверить |
 | `ETALON.md`, `CHANNEL_TEMPLATE.md`, `CLAUDE.md` | правила мини-аппа, добавление канала, памятка ассистента |

@@ -86,6 +86,20 @@
     #status { font-size:13px; color:#888; text-align:center; padding:8px 0 0; flex-shrink:0; }
     .dot { display:inline-block; width:8px; height:8px; background:#D52B1E; border-radius:50%; margin-right:6px; animation:pulse 1.2s infinite; vertical-align:middle; }
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.25} }
+    /* «Подякувати» (Telegram Stars) */
+    .thank-btn { margin:18px 0 6px; padding:12px 22px; border-radius:999px; border:1px solid rgba(255,214,0,.45); background:rgba(255,214,0,.08); color:#ffd600; font:700 14px/1 inherit; cursor:pointer; display:none; }
+    .thank-btn:active { transform:scale(.97); }
+    #donate-modal { position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,.72); display:none; align-items:flex-end; justify-content:center; padding:0 0 env(safe-area-inset-bottom,0); }
+    #donate-modal.show { display:flex; }
+    #donate-modal .sheet { width:100%; max-width:520px; background:#12121f; border:1px solid #2a2a40; border-radius:18px 18px 0 0; padding:20px 18px 24px; color:#e2e2f0; text-align:center; position:relative; }
+    #donate-modal h3 { font-size:17px; margin:0 0 6px; }
+    #donate-modal p { font-size:13px; color:#9a9ab8; margin:0 0 14px; }
+    #donate-modal .amounts { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    #donate-modal .amounts button { padding:14px 0; border-radius:12px; border:1px solid #3a3a58; background:#1b1b30; color:#fff; font:800 15px/1 inherit; cursor:pointer; }
+    #donate-modal .amounts button:active { background:#2f7de1; }
+    #donate-modal .amounts button:disabled { opacity:.5; }
+    #donate-modal .close { position:absolute; top:10px; right:12px; background:none; border:0; color:#9a9ab8; font-size:18px; cursor:pointer; }
+    #donate-modal .msg { min-height:18px; margin-top:10px; font-size:13px; color:#ffd600; }
   </style>
 </head>
 <body>
@@ -94,6 +108,7 @@
   <div class="hub-logo"><span class="blue">УКРАЇНА</span><span class="yellow">·ТВ</span></div>
   <div class="hub-sub" id="hub-sub"></div>
   <div class="channels-grid" id="channels-grid"></div>
+  <button class="thank-btn" id="thank-btn" type="button"></button>
 </div>
 
 <div id="player-screen">
@@ -228,8 +243,8 @@ const CHANNEL_GROUPS = [
     ]
   },
   {
-    label: "📺 Суспільне та громадські",
-    labels: {"uk": "📺 Суспільне та громадські", "en": "📺 Public & community", "ru": "📺 Общественные"},
+    label: "📺 Суспільні та громадські",
+    labels: {"uk": "📺 Суспільні та громадські", "en": "📺 Public & community", "ru": "📺 Общественные"},
     channels: [
       { id:"armytv", name:"Армія ТВ", nameEn:"Army TV", nameRu:"Армия ТВ", icon:"АРМ", color:"#33691e", iconBg:"#0a1408", slug:"armiya-tv-live", logo:"https://ukraine-tv.uk/assets/logos/armytv.png" },
       { id:"irt", name:"IRT", nameEn:"IRT", nameRu:"IRT", icon:"IRT", color:"#00838f", iconBg:"#081214", slug:"irt-live", logo:"https://ukraine-tv.uk/assets/logos/irt.png" },
@@ -279,14 +294,14 @@ const CHANNEL_GROUPS = [
 
 // ── Переводы ────────────────────────────────────────────────────────────────
 const T = {
-  ru:{ hubSub:'Прямой эфир — Бесплатно — 24/7', unavailable:'Канал временно недоступен — попробуйте позже или выберите другой', loading:'Получаем поток...', connecting:'Подключение...', live:'ПРЯМОЙ ЭФИР', pressPlay:'Нажмите ▶', errorStream:'Ошибка — переподключаемся...', errorUrl:'Не удалось получить URL', errorServer:'Ошибка сервера', reconnect:'🔄 Переподключиться', unmute:'🔊 Включить звук', mute:'🔇 Выключить звук', fullscreen:'🔳 Полный экран', exitFs:'✕ Выйти', audioMode:'🎧 Только звук', videoMode:'🎥 Видео', channels:'📺 Все каналы', watchOnSite:'🌐 Смотреть на сайте' },
-  en:{ hubSub:'Live — Free — 24/7', unavailable:'Channel temporarily unavailable — try again later or pick another', loading:'Loading...', connecting:'Connecting...', live:'LIVE', pressPlay:'Press ▶', errorStream:'Error — reconnecting...', errorUrl:'Failed to get URL', errorServer:'Server error', reconnect:'🔄 Reconnect', unmute:'🔊 Unmute', mute:'🔇 Mute', fullscreen:'🔳 Fullscreen', exitFs:'✕ Exit', audioMode:'🎧 Audio only', videoMode:'🎥 Video', channels:'📺 All channels', watchOnSite:'🌐 Watch on website' },
-  bg:{ hubSub:'На живо — Безплатно — 24/7', unavailable:'Каналът временно не е достъпен — опитайте по-късно или изберете друг', loading:'Зареждаме...', connecting:'Свързване...', live:'НА ЖИВО', pressPlay:'Натиснете ▶', errorStream:'Грешка...', errorUrl:'Неуспешно', errorServer:'Грешка', reconnect:'🔄 Свържи', unmute:'🔊 Звук', mute:'🔇 Тихо', fullscreen:'🔳 Екран', exitFs:'✕', audioMode:'🎧 Аудио', videoMode:'🎥 Видео', channels:'📺 Всички канали', watchOnSite:'🌐 Гледай в сайта' },
-  uk:{ hubSub:'Прямий ефір — Безкоштовно — 24/7', unavailable:'Канал тимчасово недоступний — спробуйте пізніше або оберіть інший', loading:'Отримуємо...', connecting:'Підключення...', live:'ПРЯМИЙ ЕФІР', pressPlay:'Натисніть ▶', errorStream:'Помилка...', errorUrl:'Помилка URL', errorServer:'Помилка', reconnect:'🔄 Повторити', unmute:'🔊 Звук', mute:'🔇 Тихо', fullscreen:'🔳 Екран', exitFs:'✕', audioMode:'🎧 Аудіо', videoMode:'🎥 Відео', channels:'📺 Усі канали', watchOnSite:'🌐 Дивитись на сайті' },
-  de:{ hubSub:'Live — Kostenlos — 24/7', unavailable:'Kanal vorübergehend nicht verfügbar — später erneut versuchen oder anderen wählen', loading:'Laden...', connecting:'Verbinden...', live:'LIVE', pressPlay:'▶ drücken', errorStream:'Fehler...', errorUrl:'Fehler', errorServer:'Serverfehler', reconnect:'🔄 Neu', unmute:'🔊 Ton', mute:'🔇 Still', fullscreen:'🔳 Vollbild', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Video', channels:'📺 Alle Sender', watchOnSite:'🌐 Auf der Website ansehen' },
-  fr:{ hubSub:'En direct — Gratuit — 24/7', unavailable:'Chaîne temporairement indisponible — réessayez plus tard ou choisissez-en une autre', loading:'Chargement...', connecting:'Connexion...', live:'EN DIRECT', pressPlay:'▶', errorStream:'Erreur...', errorUrl:'Erreur', errorServer:'Erreur', reconnect:'🔄 Reconnecter', unmute:'🔊 Son', mute:'🔇 Muet', fullscreen:'🔳 Plein', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Vidéo', channels:'📺 Toutes les chaînes', watchOnSite:'🌐 Voir sur le site' },
-  es:{ hubSub:'En vivo — Gratis — 24/7', unavailable:'Canal temporalmente no disponible — inténtalo más tarde o elige otro', loading:'Cargando...', connecting:'Conectando...', live:'EN VIVO', pressPlay:'▶', errorStream:'Error...', errorUrl:'Error', errorServer:'Error', reconnect:'🔄 Reconectar', unmute:'🔊 Sonido', mute:'🔇 Silencio', fullscreen:'🔳 Pantalla', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Video', channels:'📺 Todos los canales', watchOnSite:'🌐 Ver en el sitio' },
-  tr:{ hubSub:'Canlı — Ücretsiz — 24/7', unavailable:'Kanal geçici olarak kullanılamıyor — daha sonra deneyin veya başka seçin', loading:'Yükleniyor...', connecting:'Bağlanıyor...', live:'CANLI', pressPlay:'▶', errorStream:'Hata...', errorUrl:'Hata', errorServer:'Hata', reconnect:'🔄 Bağlan', unmute:'🔊 Ses', mute:'🔇 Sessiz', fullscreen:'🔳 Tam ekran', exitFs:'✕', audioMode:'🎧 Ses', videoMode:'🎥 Video', channels:'📺 Tüm kanallar', watchOnSite:'🌐 Sitede izle' },
+  ru:{ thank:'⭐ Поблагодарить', donateSub:'Поддержать проект Telegram Stars', donateThanks:'Спасибо! 💙💛', hubSub:'Прямой эфир — Бесплатно — 24/7', unavailable:'Канал временно недоступен — попробуйте позже или выберите другой', loading:'Получаем поток...', connecting:'Подключение...', live:'ПРЯМОЙ ЭФИР', pressPlay:'Нажмите ▶', errorStream:'Ошибка — переподключаемся...', errorUrl:'Не удалось получить URL', errorServer:'Ошибка сервера', reconnect:'🔄 Переподключиться', unmute:'🔊 Включить звук', mute:'🔇 Выключить звук', fullscreen:'🔳 Полный экран', exitFs:'✕ Выйти', audioMode:'🎧 Только звук', videoMode:'🎥 Видео', channels:'📺 Все каналы', watchOnSite:'🌐 Смотреть на сайте' },
+  en:{ thank:'⭐ Say thanks', donateSub:'Support the project with Telegram Stars', donateThanks:'Thank you! 💙💛', hubSub:'Live — Free — 24/7', unavailable:'Channel temporarily unavailable — try again later or pick another', loading:'Loading...', connecting:'Connecting...', live:'LIVE', pressPlay:'Press ▶', errorStream:'Error — reconnecting...', errorUrl:'Failed to get URL', errorServer:'Server error', reconnect:'🔄 Reconnect', unmute:'🔊 Unmute', mute:'🔇 Mute', fullscreen:'🔳 Fullscreen', exitFs:'✕ Exit', audioMode:'🎧 Audio only', videoMode:'🎥 Video', channels:'📺 All channels', watchOnSite:'🌐 Watch on website' },
+  bg:{ thank:'⭐ Благодаря', donateSub:'Подкрепете проекта със Telegram Stars', donateThanks:'Благодарим! 💙💛', hubSub:'На живо — Безплатно — 24/7', unavailable:'Каналът временно не е достъпен — опитайте по-късно или изберете друг', loading:'Зареждаме...', connecting:'Свързване...', live:'НА ЖИВО', pressPlay:'Натиснете ▶', errorStream:'Грешка...', errorUrl:'Неуспешно', errorServer:'Грешка', reconnect:'🔄 Свържи', unmute:'🔊 Звук', mute:'🔇 Тихо', fullscreen:'🔳 Екран', exitFs:'✕', audioMode:'🎧 Аудио', videoMode:'🎥 Видео', channels:'📺 Всички канали', watchOnSite:'🌐 Гледай в сайта' },
+  uk:{ thank:'⭐ Подякувати', donateSub:'Підтримати проєкт зірками Telegram', donateThanks:'Дякуємо! 💙💛', hubSub:'Прямий ефір — Безкоштовно — 24/7', unavailable:'Канал тимчасово недоступний — спробуйте пізніше або оберіть інший', loading:'Отримуємо...', connecting:'Підключення...', live:'ПРЯМИЙ ЕФІР', pressPlay:'Натисніть ▶', errorStream:'Помилка...', errorUrl:'Помилка URL', errorServer:'Помилка', reconnect:'🔄 Повторити', unmute:'🔊 Звук', mute:'🔇 Тихо', fullscreen:'🔳 Екран', exitFs:'✕', audioMode:'🎧 Аудіо', videoMode:'🎥 Відео', channels:'📺 Усі канали', watchOnSite:'🌐 Дивитись на сайті' },
+  de:{ thank:'⭐ Danke sagen', donateSub:'Unterstütze das Projekt mit Telegram Stars', donateThanks:'Danke! 💙💛', hubSub:'Live — Kostenlos — 24/7', unavailable:'Kanal vorübergehend nicht verfügbar — später erneut versuchen oder anderen wählen', loading:'Laden...', connecting:'Verbinden...', live:'LIVE', pressPlay:'▶ drücken', errorStream:'Fehler...', errorUrl:'Fehler', errorServer:'Serverfehler', reconnect:'🔄 Neu', unmute:'🔊 Ton', mute:'🔇 Still', fullscreen:'🔳 Vollbild', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Video', channels:'📺 Alle Sender', watchOnSite:'🌐 Auf der Website ansehen' },
+  fr:{ thank:'⭐ Remercier', donateSub:'Soutenez le projet avec Telegram Stars', donateThanks:'Merci ! 💙💛', hubSub:'En direct — Gratuit — 24/7', unavailable:'Chaîne temporairement indisponible — réessayez plus tard ou choisissez-en une autre', loading:'Chargement...', connecting:'Connexion...', live:'EN DIRECT', pressPlay:'▶', errorStream:'Erreur...', errorUrl:'Erreur', errorServer:'Erreur', reconnect:'🔄 Reconnecter', unmute:'🔊 Son', mute:'🔇 Muet', fullscreen:'🔳 Plein', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Vidéo', channels:'📺 Toutes les chaînes', watchOnSite:'🌐 Voir sur le site' },
+  es:{ thank:'⭐ Agradecer', donateSub:'Apoya el proyecto con Telegram Stars', donateThanks:'¡Gracias! 💙💛', hubSub:'En vivo — Gratis — 24/7', unavailable:'Canal temporalmente no disponible — inténtalo más tarde o elige otro', loading:'Cargando...', connecting:'Conectando...', live:'EN VIVO', pressPlay:'▶', errorStream:'Error...', errorUrl:'Error', errorServer:'Error', reconnect:'🔄 Reconectar', unmute:'🔊 Sonido', mute:'🔇 Silencio', fullscreen:'🔳 Pantalla', exitFs:'✕', audioMode:'🎧 Audio', videoMode:'🎥 Video', channels:'📺 Todos los canales', watchOnSite:'🌐 Ver en el sitio' },
+  tr:{ thank:'⭐ Teşekkür et', donateSub:'Projeyi Telegram Stars ile destekleyin', donateThanks:'Teşekkürler! 💙💛', hubSub:'Canlı — Ücretsiz — 24/7', unavailable:'Kanal geçici olarak kullanılamıyor — daha sonra deneyin veya başka seçin', loading:'Yükleniyor...', connecting:'Bağlanıyor...', live:'CANLI', pressPlay:'▶', errorStream:'Hata...', errorUrl:'Hata', errorServer:'Hata', reconnect:'🔄 Bağlan', unmute:'🔊 Ses', mute:'🔇 Sessiz', fullscreen:'🔳 Tam ekran', exitFs:'✕', audioMode:'🎧 Ses', videoMode:'🎥 Video', channels:'📺 Tüm kanallar', watchOnSite:'🌐 Sitede izle' },
 };
 function getLang() {
   try { const s=tg?.initDataUnsafe?.user?.language_code?.split('-')[0].toLowerCase(); if(s&&T[s]) return s; } catch(e) {}
@@ -1119,6 +1134,52 @@ function goToHub() {
 backBtn.onclick = () => goToHub();
 
 buildHub();
+
+// ── «Подякувати» (Telegram Stars): окно сумм → счёт от бота-воркера → tg.openInvoice ──
+const DONATE_API = 'https://ukraine-tv-bot.dyaltd.workers.dev';
+const DONATE_AMOUNTS = [25, 50, 100, 250];
+const thankBtn = document.getElementById('thank-btn');
+const donateModal = document.getElementById('donate-modal');
+const donateMsg = document.getElementById('donate-msg');
+function openDonate() {
+  if (!tg?.openInvoice) return;               // вне Telegram оплата Stars недоступна
+  document.getElementById('donate-title').textContent = t.thank;
+  document.getElementById('donate-sub').textContent = t.donateSub;
+  donateMsg.textContent = '';
+  const box = document.getElementById('donate-amounts'); box.innerHTML = '';
+  DONATE_AMOUNTS.forEach(n => { const b = document.createElement('button'); b.type = 'button'; b.textContent = '⭐ ' + n; b.onclick = () => payStars(n, b); box.appendChild(b); });
+  donateModal.classList.add('show');
+  try { tg.HapticFeedback?.impactOccurred('light'); } catch(e) {}
+}
+function closeDonate() { donateModal.classList.remove('show'); }
+async function payStars(amount, btn) {
+  btn.disabled = true; donateMsg.textContent = '…';
+  try {
+    const r = await fetch(DONATE_API + '/invoice?amount=' + amount);
+    const d = await r.json();
+    if (!d.url) throw new Error('no url');
+    donateMsg.textContent = '';
+    tg.openInvoice(d.url, status => {
+      btn.disabled = false;
+      if (status === 'paid') { donateMsg.textContent = t.donateThanks; try { tg.HapticFeedback?.notificationOccurred('success'); } catch(e) {} setTimeout(closeDonate, 1800); }
+    });
+  } catch (e) { btn.disabled = false; donateMsg.textContent = '⚠️'; }
+}
+if (tg?.openInvoice) { thankBtn.textContent = t.thank; thankBtn.style.display = 'inline-block'; thankBtn.onclick = openDonate; }
+document.getElementById('donate-close').onclick = closeDonate;
+donateModal.addEventListener('click', e => { if (e.target === donateModal) closeDonate(); });
+// deep link: https://t.me/UkraineTVHub_bot/ukrainetv?startapp=donate (кнопка под постом канала)
+(function () {
+  const hp = new URLSearchParams(location.search), hh = new URLSearchParams(location.hash.replace(/^#/, ''));
+  const raw = tg?.initDataUnsafe?.start_param || hh.get('tgWebAppStartParam') || hp.get('tgWebAppStartParam') || '';
+  if (raw === 'donate') setTimeout(openDonate, 400);
+})();
 </script>
+<div id="donate-modal" role="dialog" aria-modal="true"><div class="sheet">
+  <button class="close" id="donate-close" type="button" aria-label="Close">✕</button>
+  <h3 id="donate-title"></h3><p id="donate-sub"></p>
+  <div class="amounts" id="donate-amounts"></div>
+  <div class="msg" id="donate-msg"></div>
+</div></div>
 </body>
 </html>

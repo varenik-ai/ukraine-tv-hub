@@ -21,7 +21,7 @@ printf %s "$ADMIN_IDS"      | npx wrangler secret put ADMIN_IDS      -c bot-work
 URL="https://ukraine-tv-bot.dyaltd.workers.dev"
 api() { curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/$1" -H 'content-type: application/json' -d "$2"; echo; }
 echo "== webhook"
-api setWebhook "{\"url\":\"$URL/webhook\",\"secret_token\":\"$WEBHOOK_SECRET\",\"allowed_updates\":[\"message\"],\"drop_pending_updates\":true}"
+api setWebhook "{\"url\":\"$URL/webhook\",\"secret_token\":\"$WEBHOOK_SECRET\",\"allowed_updates\":[\"message\",\"pre_checkout_query\"],\"drop_pending_updates\":true}"
 echo "== команди і кнопка меню"
 api setMyCommands '{"commands":[{"command":"start","description":"Відкрити Україна ТВ"}]}'
 api setChatMenuButton '{"menu_button":{"type":"web_app","text":"📺 Україна ТВ","web_app":{"url":"https://varenik-ai.github.io/ukraine-tv-hub/?v=2"}}}'

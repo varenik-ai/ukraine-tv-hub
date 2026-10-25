@@ -19,6 +19,7 @@ globalThis.fetch = async (url, init) => {
   const ok = result => new Response(JSON.stringify({ ok: true, result }));
   if (method === 'getChat') return ok({ pinned_message: pinned });
   if (method === 'sendMessage') return ok({ message_id: 77 });
+  if (method === 'createInvoiceLink') return ok('https://t.me/$inv123');
   return ok(true);
 };
 const env = { BOT_TOKEN: 't', WEBHOOK_SECRET: 's3cret', ADMIN_IDS: '111, 222' };
@@ -46,6 +47,37 @@ assert.equal(calls[1].body.message_id, 42);
 // закріплений чужий пост -> новий
 pinned = { message_id: 43, from: { is_bot: false } };
 assert.deepEqual(await run(upd('/post')), ['getChat', 'sendMessage', 'pinChatMessage', 'sendMessage']);
+
+
+// ── «Подякувати» (Stars) ──
+const pc = (amount, payload, cur = 'XTR') => ({ pre_checkout_query: { id: 'pq1', currency: cur, total_amount: amount, invoice_payload: payload, from: { id: 5 } } });
+assert.deepEqual(await run(pc(50, 'donate_50')), ['answerPreCheckoutQuery']); assert.equal(calls[0].body.ok, true);
+await run(pc(50, 'donate_50', 'USD')); assert.equal(calls[0].body.ok, false);          // не Stars
+await run(pc(7, 'donate_7')); assert.equal(calls[0].body.ok, false);                    // сума не з переліку
+await run(pc(25, 'donate_100')); assert.equal(calls[0].body.ok, false);                 // сума не збігається з payload
+await run(pc(25, 'evil')); assert.equal(calls[0].body.ok, false);
+await run({ message: { chat: { id: 9 }, from: { id: 7, language_code: 'en' }, successful_payment: { total_amount: 100, currency: 'XTR' } } });
+assert.equal(calls[0].method, 'sendMessage'); assert.match(calls[0].body.text, /Thank you.*100/);
+await run({ message: { chat: { id: 9 }, from: { id: 7, language_code: 'xx' }, successful_payment: { total_amount: 25, currency: 'XTR' } } }); assert.match(calls[0].body.text, /Дякуємо/);
+// /fixpost: лише адмін, лише розмітка (editMessageReplyMarkup), не editMessageText
+pinned = { message_id: 42, from: { is_bot: true } };
+assert.deepEqual(await run(upd('/fixpost', { id: 999 })), []);
+assert.deepEqual(await run(upd('/fixpost')), ['getChat', 'editMessageReplyMarkup', 'sendMessage']);
+assert.equal(calls[1].body.message_id, 42);
+assert.ok(calls[1].body.reply_markup.inline_keyboard.flat().some(b => /startapp=donate$/.test(b.url || '')));
+pinned = null; assert.deepEqual(await run(upd('/fixpost')), ['getChat', 'sendMessage']); assert.match(calls[1].body.text, /немає закріпленого/);
+// клавіатура /post містить кнопку подяки з deep link
+pinned = null; await run(upd('/post')); assert.ok(calls.find(c => c.method === 'sendMessage' && c.body.chat_id === '@UkraineTVHub').body.reply_markup.inline_keyboard.flat().some(b => b.text.startsWith('⭐') && b.url.endsWith('?startapp=donate')));
+// /invoice
+const inv = (q, origin, method = 'GET') => { calls.length = 0; return mod.default.fetch(new Request('https://x/invoice' + q, { method, headers: origin ? { origin } : {} }), env, { waitUntil: p => p }); };
+let r = await inv('?amount=25', 'https://varenik-ai.github.io'); assert.equal(r.status, 200); assert.equal((await r.json()).url, 'https://t.me/$inv123');
+assert.equal(r.headers.get('access-control-allow-origin'), 'https://varenik-ai.github.io');
+assert.equal(calls[0].method, 'createInvoiceLink'); assert.equal(calls[0].body.currency, 'XTR'); assert.equal(calls[0].body.payload, 'donate_25'); assert.equal(calls[0].body.prices[0].amount, 25);
+for (const a of ['100', '250', '50']) assert.equal((await inv('?amount=' + a, 'https://ukraine-tv.uk')).status, 200);
+assert.equal((await inv('?amount=7', 'https://ukraine-tv.uk')).status, 400);
+assert.equal((await inv('', 'https://ukraine-tv.uk')).status, 400);
+r = await inv('?amount=25', 'https://evil.example'); assert.equal(r.status, 403); assert.equal(r.headers.get('access-control-allow-origin'), null); assert.equal(calls.length, 0);
+r = await inv('?amount=25', 'https://ukraine-tv.uk', 'OPTIONS'); assert.equal(r.status, 204);
 
 // HTTP-шар
 const hit = (path, method, headers, body) => mod.default.fetch(new Request('https://x' + path, { method, headers, body }), env, { waitUntil: p => p });

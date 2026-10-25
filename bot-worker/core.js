@@ -43,6 +43,28 @@ export function makeCore(CH) {
     const t = TXT.uk;
     return `🇺🇦 *Україна ТВ — ${CH.n} ${plural(CH.n)} наживо* 🔴\n\nДивіться українські телеканали прямо в Telegram — *безкоштовно, без VPN, без реєстрації, 24/7.*\n\n━━━━━━━━━━━━━━━━━━━━\n${listLines('uk')}\n━━━━━━━━━━━━━━━━━━━━\n\n${t.foot}\n🌐 Те саме на сайті: ukraine-tv.uk\n\n${t.pick}`;
   }
-  const postKeyboard = { inline_keyboard: [[{ text: TXT.uk.open, url: APP_URL }], [{ text: '🌐 ukraine-tv.uk', url: SITE_URL }]] };
-  return { TXT, greeting, startKeyboard, channelPost, postKeyboard };
+  // ── «Подякувати» (Telegram Stars) ──
+  const DONATE_AMOUNTS = [25, 50, 100, 250];
+  const DONATE_ORIGINS = ['https://varenik-ai.github.io', 'https://ukraine-tv.uk', 'https://www.ukraine-tv.uk'];
+  const DONATE_URL = APP_URL + '?startapp=donate';
+  const THANK_BTN = { uk: '⭐ Подякувати', ru: '⭐ Поблагодарить', en: '⭐ Say thanks', bg: '⭐ Благодаря', pl: '⭐ Podziękuj', de: '⭐ Danke sagen', fr: '⭐ Remercier', es: '⭐ Agradecer' };
+  const THANKS = {
+    uk: n => `💙💛 Дякуємо за підтримку! Ваші ${n} ⭐ допомагають розвивати Україна ТВ.`,
+    ru: n => `💙💛 Спасибо за поддержку! Ваши ${n} ⭐ помогают развивать Украина ТВ.`,
+    en: n => `💙💛 Thank you for your support! Your ${n} ⭐ help Ukraine TV grow.`,
+    bg: n => `💙💛 Благодарим за подкрепата! Вашите ${n} ⭐ помагат на Ukraine TV да се развива.`,
+    pl: n => `💙💛 Dziękujemy za wsparcie! Twoje ${n} ⭐ pomagają rozwijać Ukraine TV.`,
+    de: n => `💙💛 Danke für Ihre Unterstützung! Ihre ${n} ⭐ helfen Ukraine TV beim Wachsen.`,
+    fr: n => `💙💛 Merci pour votre soutien ! Vos ${n} ⭐ aident Ukraine TV à se développer.`,
+    es: n => `💙💛 ¡Gracias por tu apoyo! Tus ${n} ⭐ ayudan a que Ukraine TV crezca.`,
+  };
+  const thanksText = (lang, n) => (THANKS[lang] || THANKS.uk)(n);
+  const invoice = amount => ({
+    title: 'Україна ТВ — подяка',
+    description: `Підтримати проєкт Україна ТВ: ${amount} ⭐`,
+    payload: 'donate_' + amount, currency: 'XTR', prices: [{ label: 'Україна ТВ', amount }],
+  });
+  // ключова клавіатура поста: застосунок, сайт, подяка
+  const postKeyboard = { inline_keyboard: [[{ text: TXT.uk.open, url: APP_URL }], [{ text: '🌐 ukraine-tv.uk', url: SITE_URL }], [{ text: THANK_BTN.uk, url: DONATE_URL }]] };
+  return { TXT, greeting, startKeyboard, channelPost, postKeyboard, DONATE_AMOUNTS, DONATE_ORIGINS, DONATE_URL, THANK_BTN, thanksText, invoice };
 }
