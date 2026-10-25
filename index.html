@@ -27,7 +27,7 @@
     .channel-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; background:var(--ch-color,#555); }
     .channel-card:active { opacity:.75; transform:scale(.98); }
     .ch-icon { width:44px; height:44px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; flex-shrink:0; }
-    .ch-icon.ch-logo { background:#0e0e18 !important; padding:6px; box-sizing:border-box; }
+    .ch-icon.ch-logo { background:#f4f6fb !important; padding:5px; box-sizing:border-box; } /* логотипы — на светлой плитке */
     .ch-icon.ch-logo img { width:100%; height:100%; object-fit:contain; display:block; }
     .site-link-btn { background:linear-gradient(135deg,#ff9800,#f4511e) !important; font-weight:800 !important; box-shadow:0 2px 10px rgba(244,81,53,.5); }
     /* v82.24: ТНТ — источника с открытым CORS нет ни у нас, ни у конкурентов
@@ -203,36 +203,36 @@ const CHANNEL_GROUPS = [
     label: "📡 Новини та загальні",
     labels: {"uk": "📡 Новини та загальні", "en": "📡 News & general", "ru": "📡 Новости и общие"},
     channels: [
-      { id:"pershyi", name:"Перший канал", nameEn:"Pershyi", nameRu:"Перший канал", icon:"1", color:"#005BBB", iconBg:"#08101a", slug:"pershyi-live" },
-      { id:"channel5", name:"5 Канал", nameEn:"5 Kanal", nameRu:"5 Канал", icon:"5", color:"#1565c0", iconBg:"#0a0f1a", slug:"channel5-live" },
-      { id:"espreso", name:"Еспресо ТВ", nameEn:"Espreso TV", nameRu:"Эспрессо ТВ", icon:"ЕСП", color:"#005BBB", iconBg:"#08101a", slug:"espreso-live" },
-      { id:"kyiv24", name:"Київ 24", nameEn:"Kyiv 24", nameRu:"Киев 24", icon:"К24", color:"#0277bd", iconBg:"#081218", slug:"kyiv24-live" },
-      { id:"news24", name:"24 Канал", nameEn:"24 Kanal", nameRu:"24 Канал", icon:"24", color:"#c62828", iconBg:"#180808", slug:"24kanal-live" },
-      { id:"rada", name:"Рада ТВ", nameEn:"Rada TV", nameRu:"Рада ТВ", icon:"РД", color:"#2e7d32", iconBg:"#081208", slug:"rada-tv-live" },
-      { id:"marafon", name:"1+1 Марафон", nameEn:"1+1 Marathon", nameRu:"1+1 Марафон", icon:"МАР", color:"#FFD500", iconBg:"#1a1400", slug:"marafon-live" },
+      { id:"pershyi", name:"Перший канал", nameEn:"Pershyi", nameRu:"Перший канал", icon:"1", color:"#005BBB", iconBg:"#08101a", slug:"pershyi-live", logo:"https://ukraine-tv.uk/assets/logos/pershyi.png" },
+      { id:"channel5", name:"5 Канал", nameEn:"5 Kanal", nameRu:"5 Канал", icon:"5", color:"#1565c0", iconBg:"#0a0f1a", slug:"channel5-live", logo:"https://ukraine-tv.uk/assets/logos/channel5.png" },
+      { id:"espreso", name:"Еспресо ТВ", nameEn:"Espreso TV", nameRu:"Эспрессо ТВ", icon:"ЕСП", color:"#005BBB", iconBg:"#08101a", slug:"espreso-live", logo:"https://ukraine-tv.uk/assets/logos/espreso.png" },
+      { id:"kyiv24", name:"Київ 24", nameEn:"Kyiv 24", nameRu:"Киев 24", icon:"К24", color:"#0277bd", iconBg:"#081218", slug:"kyiv24-live", logo:"https://ukraine-tv.uk/assets/logos/kyiv24.png" },
+      { id:"news24", name:"24 Канал", nameEn:"24 Kanal", nameRu:"24 Канал", icon:"24", color:"#c62828", iconBg:"#180808", slug:"24kanal-live", logo:"https://ukraine-tv.uk/assets/logos/news24.png" },
+      { id:"rada", name:"Рада ТВ", nameEn:"Rada TV", nameRu:"Рада ТВ", icon:"РД", color:"#2e7d32", iconBg:"#081208", slug:"rada-tv-live", logo:"https://ukraine-tv.uk/assets/logos/rada.png" },
+      { id:"marafon", name:"1+1 Марафон", nameEn:"1+1 Marathon", nameRu:"1+1 Марафон", icon:"МАР", color:"#FFD500", iconBg:"#1a1400", slug:"marafon-live", logo:"https://ukraine-tv.uk/assets/logos/marafon.png" },
     ]
   },
   {
     label: "🎬 Розваги та кіно",
     labels: {"uk": "🎬 Розваги та кіно", "en": "🎬 Entertainment & movies", "ru": "🎬 Развлечения и кино"},
     channels: [
-      { id:"ntn", name:"НТН", nameEn:"NTN", nameRu:"НТН", icon:"НТН", color:"#e53935", iconBg:"#1a0808", slug:"ntn-live" },
-      { id:"inter", name:"Інтер", nameEn:"Inter", nameRu:"Интер", icon:"ІНТ", color:"#00897b", iconBg:"#081412", slug:"inter-live" },
-      { id:"oneplusone", name:"1+1 Міжнародний", nameEn:"1+1 International", nameRu:"1+1 Международный", icon:"1+1", color:"#FFD500", iconBg:"#1a1400", slug:"1plus1-live" },
-      { id:"kvartal", name:"Квартал ТВ", nameEn:"Kvartal TV", nameRu:"Квартал ТВ", icon:"КВ", color:"#ff6d00", iconBg:"#1a1000", slug:"kvartal-tv-live" },
-      { id:"mega", name:"Мега", nameEn:"Mega", nameRu:"Мега", icon:"МГ", color:"#d81b60", iconBg:"#180810", slug:"mega-live" },
-      { id:"k2", name:"К2", nameEn:"K2", nameRu:"К2", icon:"К2", color:"#6a1b9a", iconBg:"#130a18", slug:"k2-live" },
-      { id:"filmualive", name:"FilmUA Live", nameEn:"FilmUA Live", nameRu:"FilmUA Live", icon:"FUA", color:"#e65100", iconBg:"#1a0e00", slug:"filmua-live" },
-      { id:"cinema4ever", name:"4ever Cinema", nameEn:"4ever Cinema", nameRu:"4ever Cinema", icon:"4CIN", color:"#e65100", iconBg:"#1a0e00", slug:"4ever-cinema-live" },
-      { id:"drama4ever", name:"4ever Drama", nameEn:"4ever Drama", nameRu:"4ever Drama", icon:"4DR", color:"#4a148c", iconBg:"#0e0a18", slug:"4ever-drama-live" },
+      { id:"ntn", name:"НТН", nameEn:"NTN", nameRu:"НТН", icon:"НТН", color:"#e53935", iconBg:"#1a0808", slug:"ntn-live", logo:"https://ukraine-tv.uk/assets/logos/ntn.png" },
+      { id:"inter", name:"Інтер", nameEn:"Inter", nameRu:"Интер", icon:"ІНТ", color:"#00897b", iconBg:"#081412", slug:"inter-live", logo:"https://ukraine-tv.uk/assets/logos/inter.png" },
+      { id:"oneplusone", name:"1+1 Міжнародний", nameEn:"1+1 International", nameRu:"1+1 Международный", icon:"1+1", color:"#FFD500", iconBg:"#1a1400", slug:"1plus1-live", logo:"https://ukraine-tv.uk/assets/logos/oneplusone.png" },
+      { id:"kvartal", name:"Квартал ТВ", nameEn:"Kvartal TV", nameRu:"Квартал ТВ", icon:"КВ", color:"#ff6d00", iconBg:"#1a1000", slug:"kvartal-tv-live", logo:"https://ukraine-tv.uk/assets/logos/kvartal.png" },
+      { id:"mega", name:"Мега", nameEn:"Mega", nameRu:"Мега", icon:"МГ", color:"#d81b60", iconBg:"#180810", slug:"mega-live", logo:"https://ukraine-tv.uk/assets/logos/mega.png" },
+      { id:"k2", name:"К2", nameEn:"K2", nameRu:"К2", icon:"К2", color:"#6a1b9a", iconBg:"#130a18", slug:"k2-live", logo:"https://ukraine-tv.uk/assets/logos/k2.png" },
+      { id:"filmualive", name:"FilmUA Live", nameEn:"FilmUA Live", nameRu:"FilmUA Live", icon:"FUA", color:"#e65100", iconBg:"#1a0e00", slug:"filmua-live", logo:"https://ukraine-tv.uk/assets/logos/filmualive.png" },
+      { id:"cinema4ever", name:"4ever Cinema", nameEn:"4ever Cinema", nameRu:"4ever Cinema", icon:"4CIN", color:"#e65100", iconBg:"#1a0e00", slug:"4ever-cinema-live", logo:"https://ukraine-tv.uk/assets/logos/cinema4ever.png" },
+      { id:"drama4ever", name:"4ever Drama", nameEn:"4ever Drama", nameRu:"4ever Drama", icon:"4DR", color:"#4a148c", iconBg:"#0e0a18", slug:"4ever-drama-live", logo:"https://ukraine-tv.uk/assets/logos/drama4ever.png" },
     ]
   },
   {
     label: "📺 Суспільне та громадські",
     labels: {"uk": "📺 Суспільне та громадські", "en": "📺 Public & community", "ru": "📺 Общественные"},
     channels: [
-      { id:"armytv", name:"Армія ТВ", nameEn:"Army TV", nameRu:"Армия ТВ", icon:"АРМ", color:"#33691e", iconBg:"#0a1408", slug:"armiya-tv-live" },
-      { id:"irt", name:"IRT", nameEn:"IRT", nameRu:"IRT", icon:"IRT", color:"#00838f", iconBg:"#081214", slug:"irt-live" },
+      { id:"armytv", name:"Армія ТВ", nameEn:"Army TV", nameRu:"Армия ТВ", icon:"АРМ", color:"#33691e", iconBg:"#0a1408", slug:"armiya-tv-live", logo:"https://ukraine-tv.uk/assets/logos/armytv.png" },
+      { id:"irt", name:"IRT", nameEn:"IRT", nameRu:"IRT", icon:"IRT", color:"#00838f", iconBg:"#081214", slug:"irt-live", logo:"https://ukraine-tv.uk/assets/logos/irt.png" },
     ]
   },
   {
@@ -240,8 +240,8 @@ const CHANNEL_GROUPS = [
     labels: {"uk": "🏙️ Регіональні", "en": "🏙️ Regional", "ru": "🏙️ Региональные"},
     channels: [
       { id:"rai", name:"RAI", nameEn:"RAI", nameRu:"RAI", icon:"RAI", color:"#ad1457", iconBg:"#180810", slug:"rai-live" },
-      { id:"tva", name:"TVA", nameEn:"TVA", nameRu:"TVA", icon:"TVA", color:"#37474f", iconBg:"#0a0f12", slug:"tva-live" },
-      { id:"ntk", name:"NTK TV", nameEn:"NTK TV", nameRu:"NTK TV", icon:"NTK", color:"#0277bd", iconBg:"#081218", slug:"ntk-tv-live" },
+      { id:"tva", name:"TVA", nameEn:"TVA", nameRu:"TVA", icon:"TVA", color:"#37474f", iconBg:"#0a0f12", slug:"tva-live", logo:"https://ukraine-tv.uk/assets/logos/tva.png" },
+      { id:"ntk", name:"NTK TV", nameEn:"NTK TV", nameRu:"NTK TV", icon:"NTK", color:"#0277bd", iconBg:"#081218", slug:"ntk-tv-live", logo:"https://ukraine-tv.uk/assets/logos/ntk.png" },
       { id:"ch7", name:"7 Канал", nameEn:"7 Kanal", nameRu:"7 Канал", icon:"7К", color:"#00838f", iconBg:"#081214", slug:"7kanal-live" },
     ]
   },
@@ -249,29 +249,29 @@ const CHANNEL_GROUPS = [
     label: "🎵 Музика",
     labels: {"uk": "🎵 Музика", "en": "🎵 Music", "ru": "🎵 Музыка"},
     channels: [
-      { id:"muzvar", name:"Мюзвар", nameEn:"Muzvar", nameRu:"Мюзвар", icon:"МЗВ", color:"#FFD500", iconBg:"#1a1400", slug:"muzvar-live" },
-      { id:"nashemus", name:"NASHE Music", nameEn:"NASHE Music", nameRu:"NASHE Music", icon:"НШМ", color:"#005BBB", iconBg:"#08101a", slug:"nashe-music-live" },
-      { id:"m1", name:"М1", nameEn:"M1", nameRu:"М1", icon:"М1", color:"#8e24aa", iconBg:"#140a18", slug:"m1-live" },
-      { id:"music4ever", name:"4ever Music", nameEn:"4ever Music", nameRu:"4ever Music", icon:"4MUS", color:"#fb8c00", iconBg:"#1a1200", slug:"4ever-music-live" },
-      { id:"uamusic", name:"UA Music", nameEn:"UA Music", nameRu:"UA Music", icon:"UAM", color:"#43a047", iconBg:"#0a1408", slug:"ua-music-live" },
+      { id:"muzvar", name:"Мюзвар", nameEn:"Muzvar", nameRu:"Мюзвар", icon:"МЗВ", color:"#FFD500", iconBg:"#1a1400", slug:"muzvar-live", logo:"https://ukraine-tv.uk/assets/logos/muzvar.png" },
+      { id:"nashemus", name:"NASHE Music", nameEn:"NASHE Music", nameRu:"NASHE Music", icon:"НШМ", color:"#005BBB", iconBg:"#08101a", slug:"nashe-music-live", logo:"https://ukraine-tv.uk/assets/logos/nashemus.png" },
+      { id:"m1", name:"М1", nameEn:"M1", nameRu:"М1", icon:"М1", color:"#8e24aa", iconBg:"#140a18", slug:"m1-live", logo:"https://ukraine-tv.uk/assets/logos/m1.png" },
+      { id:"music4ever", name:"4ever Music", nameEn:"4ever Music", nameRu:"4ever Music", icon:"4MUS", color:"#fb8c00", iconBg:"#1a1200", slug:"4ever-music-live", logo:"https://ukraine-tv.uk/assets/logos/music4ever.png" },
+      { id:"uamusic", name:"UA Music", nameEn:"UA Music", nameRu:"UA Music", icon:"UAM", color:"#43a047", iconBg:"#0a1408", slug:"ua-music-live", logo:"https://ukraine-tv.uk/assets/logos/uamusic.png" },
     ]
   },
   {
     label: "👶 Дитячі",
     labels: {"uk": "👶 Дитячі", "en": "👶 Kids", "ru": "👶 Детские"},
     channels: [
-      { id:"nikikids", name:"Niki Kids", nameEn:"Niki Kids", nameRu:"Niki Kids", icon:"NIK", color:"#29b6f6", iconBg:"#081418", slug:"niki-kids-live" },
-      { id:"nikijunior", name:"Niki Junior", nameEn:"Niki Junior", nameRu:"Niki Junior", icon:"NIKJ", color:"#ec407a", iconBg:"#180810", slug:"niki-junior-live" },
+      { id:"nikikids", name:"Niki Kids", nameEn:"Niki Kids", nameRu:"Niki Kids", icon:"NIK", color:"#29b6f6", iconBg:"#081418", slug:"niki-kids-live", logo:"https://ukraine-tv.uk/assets/logos/nikikids.png" },
+      { id:"nikijunior", name:"Niki Junior", nameEn:"Niki Junior", nameRu:"Niki Junior", icon:"NIKJ", color:"#ec407a", iconBg:"#180810", slug:"niki-junior-live", logo:"https://ukraine-tv.uk/assets/logos/nikijunior.png" },
     ]
   },
   {
     label: "🎯 Тематичні",
     labels: {"uk": "🎯 Тематичні", "en": "🎯 Themed", "ru": "🎯 Тематические"},
     channels: [
-      { id:"rybalka", name:"Rybalka TV", nameEn:"Rybalka TV", nameRu:"Rybalka TV", icon:"РИБ", color:"#0277bd", iconBg:"#081218", slug:"rybalka-tv-live" },
+      { id:"rybalka", name:"Rybalka TV", nameEn:"Rybalka TV", nameRu:"Rybalka TV", icon:"РИБ", color:"#0277bd", iconBg:"#081218", slug:"rybalka-tv-live", logo:"https://ukraine-tv.uk/assets/logos/rybalka.png" },
       { id:"uafashion", name:"UA Fashion TV", nameEn:"UA Fashion TV", nameRu:"UA Fashion TV", icon:"МОД", color:"#d81b60", iconBg:"#1a0812", slug:"ua-fashion-tv-live" },
-      { id:"svarozhychy", name:"Svarozhychy", nameEn:"Svarozhychy", nameRu:"Svarozhychy", icon:"СВР", color:"#6d4c41", iconBg:"#140e0a", slug:"svarozhychy-live" },
-      { id:"equalympic", name:"Equalympic", nameEn:"Equalympic", nameRu:"Equalympic", icon:"EQL", color:"#1e88e5", iconBg:"#0a1220", slug:"equalympic-live" },
+      { id:"svarozhychy", name:"Svarozhychy", nameEn:"Svarozhychy", nameRu:"Svarozhychy", icon:"СВР", color:"#6d4c41", iconBg:"#140e0a", slug:"svarozhychy-live", logo:"https://ukraine-tv.uk/assets/logos/svarozhychy.png" },
+      { id:"equalympic", name:"Equalympic", nameEn:"Equalympic", nameRu:"Equalympic", icon:"EQL", color:"#1e88e5", iconBg:"#0a1220", slug:"equalympic-live", logo:"https://ukraine-tv.uk/assets/logos/equalympic.png" },
     ]
   },
 ];

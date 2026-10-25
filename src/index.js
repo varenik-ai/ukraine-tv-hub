@@ -8,7 +8,8 @@ import { STREAMS, SEG_PROXY_CHANNELS, SEG_PROXY_DOMAINS } from './streams.genera
 
 const VERSION = '3.1.0';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
-const DEFAULT_ORIGINS = ['https://ukraine-tv.uk', 'https://www.ukraine-tv.uk', 'https://varenik-ai.github.io'];
+// gstatic.com — приёмник Google Cast (кнопка «Трансляция на ТВ»): ТВ сам запрашивает плейлисты и сегменты
+const DEFAULT_ORIGINS = ['https://ukraine-tv.uk', 'https://www.ukraine-tv.uk', 'https://varenik-ai.github.io', 'https://www.gstatic.com'];
 const SEGMENT_EXT = /\.(ts|m4s|mp4|aac|m4a|cmfv|cmfa|vtt|webvtt|key)(\?|$)/i;
 const CORS = {
   'Access-Control-Allow-Origin': '*',
