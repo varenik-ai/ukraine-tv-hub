@@ -104,6 +104,13 @@
 </head>
 <body>
 
+<div id="donate-modal" role="dialog" aria-modal="true"><div class="sheet">
+  <button class="close" id="donate-close" type="button" aria-label="Close">✕</button>
+  <h3 id="donate-title"></h3><p id="donate-sub"></p>
+  <div class="amounts" id="donate-amounts"></div>
+  <div class="msg" id="donate-msg"></div>
+</div></div>
+
 <div id="hub-screen">
   <div class="hub-logo"><span class="blue">УКРАЇНА</span><span class="yellow">·ТВ</span></div>
   <div class="hub-sub" id="hub-sub"></div>
@@ -1180,11 +1187,5 @@ donateModal.addEventListener('click', e => { if (e.target === donateModal) close
   }
 })();
 </script>
-<div id="donate-modal" role="dialog" aria-modal="true"><div class="sheet">
-  <button class="close" id="donate-close" type="button" aria-label="Close">✕</button>
-  <h3 id="donate-title"></h3><p id="donate-sub"></p>
-  <div class="amounts" id="donate-amounts"></div>
-  <div class="msg" id="donate-msg"></div>
-</div></div>
 </body>
 </html>

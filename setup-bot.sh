@@ -24,7 +24,7 @@ echo "== webhook"
 api setWebhook "{\"url\":\"$URL/webhook\",\"secret_token\":\"$WEBHOOK_SECRET\",\"allowed_updates\":[\"message\",\"pre_checkout_query\"],\"drop_pending_updates\":true}"
 echo "== команди і кнопка меню"
 api setMyCommands '{"commands":[{"command":"start","description":"Відкрити Україна ТВ"}]}'
-api setChatMenuButton '{"menu_button":{"type":"web_app","text":"📺 Україна ТВ","web_app":{"url":"https://varenik-ai.github.io/ukraine-tv-hub/?v=3"}}}'
+api setChatMenuButton '{"menu_button":{"type":"web_app","text":"📺 Україна ТВ","web_app":{"url":"https://varenik-ai.github.io/ukraine-tv-hub/?v=4"}}}'
 echo "== перевірка"
 api getWebhookInfo '{}' | sed 's/"url":"[^"]*"/"url":"…"/'
 curl -s "$URL/health"; echo

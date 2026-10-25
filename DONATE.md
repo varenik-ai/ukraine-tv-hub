@@ -17,7 +17,7 @@
 1. `git pull` в `~/ukraine-tv-hub`.
 2. `./setup-bot.sh` — деплой воркера и повторная установка webhook с `allowed_updates = [message, pre_checkout_query]` (**без этого Telegram не присылает `pre_checkout_query` и платёж не проходит**).
 3. Боту: `/fixpost` — кнопка появится под закреплённым постом без нового уведомления подписчикам. Если пост ещё не опубликован или публиковался другим ботом: `/post`.
-4. Мини-апп обновляется через GitHub Pages, но **Telegram кэширует мини-апп по адресу**. Чтобы клиенты взяли новую версию, меняйте `?v=N` в адресе: в @BotFather → `/myapps` → бот → мини-апп `ukrainetv` → Edit Web App URL → `https://varenik-ai.github.io/ukraine-tv-hub/?v=3` (тот же адрес — в `WEB_URL` в `bot-worker/core.js` и в `setup-bot.sh`; кнопка меню обновляется повторным запуском `./setup-bot.sh`). Затем полностью закройте и откройте мини-апп.
+4. Мини-апп обновляется через GitHub Pages, но **Telegram кэширует мини-апп по адресу**. Чтобы клиенты взяли новую версию, меняйте `?v=N` в адресе: в @BotFather → `/myapps` → бот → мини-апп `ukrainetv` → Edit Web App URL → `https://varenik-ai.github.io/ukraine-tv-hub/?v=4` (тот же адрес — в `WEB_URL` в `bot-worker/core.js` и в `setup-bot.sh`; кнопка меню обновляется повторным запуском `./setup-bot.sh`). Затем полностью закройте и откройте мини-апп.
 
 ## Настройка
 - Суммы: `DONATE_AMOUNTS` в `bot-worker/core.js` и такой же массив `DONATE_AMOUNTS` в `index.html` (должны совпадать; воркер отклонит лишнее).
