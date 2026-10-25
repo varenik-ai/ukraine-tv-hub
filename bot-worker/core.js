@@ -27,7 +27,7 @@ export function makeCore(CH) {
 
 
   const APP_URL = 'https://t.me/UkraineTVHub_bot/ukrainetv';
-  const WEB_URL = 'https://varenik-ai.github.io/ukraine-tv-hub/?v=2';
+  const WEB_URL = 'https://varenik-ai.github.io/ukraine-tv-hub/?v=3';
   const SITE_URL = 'https://ukraine-tv.uk/';
 
   function greeting(lang, name) {

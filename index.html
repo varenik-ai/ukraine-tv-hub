@@ -1171,8 +1171,13 @@ donateModal.addEventListener('click', e => { if (e.target === donateModal) close
 // deep link: https://t.me/UkraineTVHub_bot/ukrainetv?startapp=donate (кнопка под постом канала)
 (function () {
   const hp = new URLSearchParams(location.search), hh = new URLSearchParams(location.hash.replace(/^#/, ''));
-  const raw = tg?.initDataUnsafe?.start_param || hh.get('tgWebAppStartParam') || hp.get('tgWebAppStartParam') || '';
-  if (raw === 'donate') setTimeout(openDonate, 400);
+  let fromInit = ''; try { fromInit = new URLSearchParams(tg?.initData || '').get('start_param') || ''; } catch(e) {}
+  const raw = tg?.initDataUnsafe?.start_param || fromInit || hh.get('tgWebAppStartParam') || hp.get('tgWebAppStartParam') || (location.hash.replace(/^#/, '') === 'donate' ? 'donate' : '');
+  if (raw === 'donate') {
+    // окно открываем, когда Telegram готов; если на первый раз не вышло (нет openInvoice) — повторяем несколько раз
+    let tries = 0; const go = () => { if (tg?.openInvoice) openDonate(); else if (++tries < 10) setTimeout(go, 300); };
+    setTimeout(go, 400);
+  }
 })();
 </script>
 <div id="donate-modal" role="dialog" aria-modal="true"><div class="sheet">
