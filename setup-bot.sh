@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 set -a; . ./.env; set +a
 : "${BOT_TOKEN:?BOT_TOKEN не заданий у .env}"; : "${ADMIN_IDS:?ADMIN_IDS не заданий у .env}"
 if [ -z "${WEBHOOK_SECRET:-}" ]; then
-  WEBHOOK_SECRET=$(LC_ALL=C tr -dc 'A-Za-z0-9' </dev/urandom | head -c 48)
+  WEBHOOK_SECRET=$(node -e "process.stdout.write(require('crypto').randomBytes(24).toString('hex'))")
   printf '\nWEBHOOK_SECRET=%s\n' "$WEBHOOK_SECRET" >> .env
 fi
 node tools/test_bot.mjs
