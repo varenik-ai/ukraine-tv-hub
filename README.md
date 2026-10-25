@@ -34,3 +34,10 @@ node --no-warnings tools/dev_server.mjs ../ukraine-tv.uk   # сайт :8765 + в
 
 ## Проверка каналов
 `python3 tools/test_streams.py ../ukraine-tv.uk/data/channels.json` — master → variant → segment, CORS, «живость».
+
+
+## Бот (автономно, без комп'ютера)
+
+Бот працює як Cloudflare Worker `ukraine-tv-bot` (webhook) — `bot-worker/`. Він відповідає на `/start` і за командою `/post` (тільки для `ADMIN_IDS`, у приватному чаті) публікує або оновлює закріплений пост каналу. Старий `bot.js` (long polling) більше не потрібен і лишається лише запасним варіантом.
+
+Налаштування один раз: у `.env` — `BOT_TOKEN` та `ADMIN_IDS`; потім `./setup-bot.sh` (деплой, секрети, webhook, меню). Тести: `node tools/test_bot.mjs`. Після зміни списку каналів: `python3 tools/gen_app_channels.py …` і `npx wrangler deploy -c bot-worker/wrangler.toml`.

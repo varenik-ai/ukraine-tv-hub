@@ -1,0 +1,5 @@
+# Деплой: npx wrangler deploy -c bot-worker/wrangler.toml   (або ./setup-bot.sh — разом із секретами та webhook)
+name = "ukraine-tv-bot"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
