@@ -2,3 +2,4 @@ node_modules/
 bot.log
 .DS_Store
 .env
+.cf.env
