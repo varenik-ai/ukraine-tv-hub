@@ -28,8 +28,8 @@ REGISTRY=../ukraine-tv.uk/data/channels.json APP_CHANNELS=../ukraine-tv.uk/data/
 ```
 
 ## Мини-апп (`index.html`)
-Собран по `ETALON.md`: fullscreen, фоновое аудио, safe area, ротация прокси (`proxy.json`), watchdog, выбор качества, AirPlay/PiP, кнопка «Дивитись на сайті», 8 языков. Язык интерфейса берётся из языка Telegram пользователя (`language_code`), затем из браузера, по умолчанию uk. Cast (Chromecast) в мини-аппе нет — он есть на сайте.
-Хостинг — GitHub Pages: `https://varenik-ai.github.io/ukraine-tv-hub/`; в Telegram открывается через `https://t.me/UkraineTVHub_bot/ukrainetv`. После изменений поднимайте `?v=` в `WEB_URL` (`bot-worker/core.js`) и в настройках мини-аппа.
+Собран по `ETALON.md`: fullscreen, фоновое аудио, safe area, ротация прокси (`proxy.json`), watchdog, выбор качества, AirPlay/PiP, кнопка «Дивитись на сайті», 8 языков. Язык интерфейса берётся из языка Telegram пользователя (`language_code`), затем из браузера, по умолчанию uk. Cast (Chromecast) в мини-аппе нет — он есть на сайте. Кнопка «⭐ Подякувати» (Telegram Stars) — см. `DONATE.md`; окно оплаты открывается и по ссылке `https://t.me/UkraineTVHub_bot/ukrainetv?startapp=donate`.
+Хостинг — GitHub Pages: `https://varenik-ai.github.io/ukraine-tv-hub/`; в Telegram открывается через `https://t.me/UkraineTVHub_bot/ukrainetv`. **Telegram кэширует мини-апп по адресу**: после любого изменения `index.html` поднимайте `?v=N` в `WEB_URL` (`bot-worker/core.js`, `setup-bot.sh`) и в @BotFather → `/myapps` → Edit Web App URL (сейчас `?v=4`), затем `./setup-bot.sh`; в Telegram мини-апп закрывают и открывают заново.
 
 ## Бот (`bot-worker/`)
 Cloudflare Worker `ukraine-tv-bot` (webhook, `https://ukraine-tv-bot.dyaltd.workers.dev`):

@@ -1,5 +1,7 @@
 # Кнопка «Подякувати» (Telegram Stars)
 
+**Статус:** работает в продакшене (проверено владельцем в Telegram: кнопка в мини-аппе, окно сумм, оплата, ссылка из поста). Текущий адрес мини-аппа: `https://varenik-ai.github.io/ukraine-tv-hub/?v=4`.
+
 Кнопка в мини-аппе и под закреплённым постом канала `@UkraineTVHub`: пользователь выбирает 25 / 50 / 100 / 250 ⭐, оплачивает Stars внутри Telegram, бот присылает благодарность. Сделано по образцу `varenik-ai/bulgaria-tv-hub` (`DONATE_GUIDE.md`).
 
 ## Как работает
@@ -28,6 +30,11 @@
 1. `node tools/test_bot.mjs` — тесты счёта, платежа и `/fixpost`.
 2. `curl 'https://ukraine-tv-bot.dyaltd.workers.dev/invoice?amount=25' -H 'Origin: https://varenik-ai.github.io'` → `{"url":"https://t.me/$…"}`; `amount=7` → 400; чужой Origin → 403.
 3. В Telegram: мини-апп → «Подякувати» → 25 ⭐ → окно оплаты Stars; ссылка `https://t.me/UkraineTVHub_bot/ukrainetv?startapp=donate` открывает окно сумм сразу.
+
+## Уроки (что ломалось при внедрении)
+- **Разметка окна должна стоять в HTML выше основного `<script>`.** Скрипт в момент запуска берёт `document.getElementById('donate-modal')`; если окно описано ниже скрипта, там `null`, и вся донат-логика молча не работает (кнопка видна, клик ничего не делает). Так было в первой версии; исправлено переносом `#donate-modal` в начало `<body>`.
+- **Telegram кэширует мини-апп по адресу.** Любое изменение `index.html` для пользователей Telegram вступает в силу только после смены `?v=N` в адресе (BotFather → Edit Web App URL) и в `WEB_URL` (`bot-worker/core.js`, `setup-bot.sh`). Версии: `?v=2` (старт) → `?v=3` → `?v=4` (исправление окна).
+- **Проверять нужно настоящим браузером.** Тестовый DOM (jsdom) не считает CSS и порядок загрузки; клик по кнопке проверен в Chrome headless с макетом Telegram (`--headless=new --dump-dom` страницы со скриптом-макетом `window.Telegram`).
 
 ## Частые ошибки
 - **Окна нет, мини-апп открылся как раньше.** Telegram держит старую версию по прежнему адресу: поднимите `?v=N` в BotFather и в `WEB_URL`, перезапустите мини-апп. Код читает `start_param` из `initDataUnsafe`, из `initData`, из `tgWebAppStartParam` (адрес и hash).

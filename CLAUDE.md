@@ -16,4 +16,6 @@ npx wrangler deploy -c bot-worker/wrangler.toml
 - Мини-апп следует `ETALON.md` (fullscreen, звук, safe area, backoff, `MAX_FAIL_STREAK`). Язык интерфейса берётся из языка Telegram — это поведение, а не ошибка.
 - Воркер работает в режиме «только плейлисты»: `/proxy` → 410. `/seg` только для каналов без CORS. Изменения в `src/index.js` сопровождать тестами в `tools/test_worker.mjs`.
 - Не запускать `bot.js` вместе с webhook-ботом.
+- В `index.html` разметка (в том числе `#donate-modal`) должна стоять **выше** основного `<script>`: скрипт берёт элементы при запуске, иначе получает `null` и логика молча ломается. Проверять клики в настоящем Chrome (headless + макет `window.Telegram`), а не только в jsdom.
+- Telegram кэширует мини-апп по адресу: после правок `index.html` поднимать `?v=N` в `WEB_URL` (`bot-worker/core.js`, `setup-bot.sh`, `DONATE.md`) и просить владельца сменить адрес в BotFather (сейчас `?v=4`). Донат (Stars): `DONATE.md`.
 - Пуши в `main`, деплой и удаление воркеров — только после явного подтверждения владельца. Старые воркеры (`birch-stream`, `ukraine-worker` …) не удалять, пока на них есть трафик.
